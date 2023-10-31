@@ -28,28 +28,54 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<CustomRaceFeatureController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{raceid}")]
+        public IActionResult Get(int raceid)
         {
-            return "value";
+            return Ok(_mapper.Map<List<CustomRaceFeatureDto>>(_customracefeaturerepos.GetCustomRaceFeature(raceid)));
         }
 
         // POST api/<CustomRaceFeatureController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateCustomRaceFeature(int raceid,[FromBody] CustomRaceFeatureDto customRaceFeature)
         {
+            if (customRaceFeature == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var customRaceFeatureMap = _mapper.Map<CustomRaceFeature>(customRaceFeature);
+
+            if (!_customracefeaturerepos.CreateCustomRaceFeature(raceid, customRaceFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
         // PUT api/<CustomRaceFeatureController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateCustomRaceFeature([FromBody] CustomRaceFeatureDto customRaceFeature)
         {
+            var customRaceFeatureMap = _mapper.Map<CustomRaceFeature>(customRaceFeature);
+            if (!_customracefeaturerepos.UpdateCustomRaceFeature(customRaceFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
         // DELETE api/<CustomRaceFeatureController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete(CustomRaceFeatureDto customRaceFeature)
         {
+            var customRaceMap = _mapper.Map<CustomRaceFeature>(customRaceFeature);
+            if (!_customracefeaturerepos.DeleteCustomRaceFeature(customRaceMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }

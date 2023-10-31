@@ -12,9 +12,42 @@ namespace Projekt_inz_backend.Repository
         {
             _context = context;
         }
+
+        public bool CreateCustomRaceFeature(int raceId, CustomRaceFeature customRaceFeature)
+        {
+            var customRaceFeatureRace = _context.Races.Where(b => b.raceID == raceId).FirstOrDefault();
+            customRaceFeature.usedBy = customRaceFeatureRace;
+            _context.Add(customRaceFeature);
+            return Save();
+        }
+
+        public bool DeleteCustomRaceFeature(CustomRaceFeature customRaceFeature)
+        {
+            _context.Remove(customRaceFeature);
+            return Save();
+        }
+
+        public ICollection<CustomRaceFeature> GetCustomRaceFeature(int raceId)
+        {
+            var customs = _context.Races.Where(b => b.raceID == raceId).Select(b => b.customFeatures).SingleOrDefault();
+            return customs;
+        }
+
         public ICollection<CustomRaceFeature> GetCustomRaceFeatures()
         {
             return _context.customRaceFeatures.OrderBy(b => b.featureID).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateCustomRaceFeature(CustomRaceFeature customRaceFeature)
+        {
+            _context.Update(customRaceFeature);
+            return Save();
         }
     }
 }

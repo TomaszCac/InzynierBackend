@@ -18,6 +18,7 @@ namespace Projekt_inz_backend.Helper
             CreateMap<RaceFeatureDto, RaceFeature>();
             CreateMap<DndClassFeature, DndClassFeatureDto>();
             CreateMap<CustomRaceFeature, CustomRaceFeatureDto>();
+            CreateMap<CustomRaceFeatureDto, CustomRaceFeature>();
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();
             CreateMap<User, UserDto>();
         }
