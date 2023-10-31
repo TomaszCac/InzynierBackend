@@ -13,6 +13,14 @@ namespace Projekt_inz_backend.Repository
             _context = context;
         }
 
+        public bool CreateRace(int ownerId, Race race)
+        {
+            User ownerEntity = _context.Users.Where(b => b.userID == ownerId).FirstOrDefault();
+            race.owner = ownerEntity;
+            _context.Add(race);
+            return Save();
+        }
+
         public Race GetRace(int id)
         {
             return _context.Races.Where(b => b.raceID == id).FirstOrDefault();
@@ -26,6 +34,12 @@ namespace Projekt_inz_backend.Repository
         public ICollection<Race> GetRaces()
         {
             return _context.Races.OrderBy(b => b.raceID).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

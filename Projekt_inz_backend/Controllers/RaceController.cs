@@ -42,8 +42,20 @@ namespace Projekt_inz_backend.Controllers
         }
         // POST api/<RaceController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateRace(int ownerId, [FromBody] RaceDto race)
         {
+            if (race == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var raceMap = _mapper.Map<Race>(race);
+
+            if (!_racerepos.CreateRace(ownerId, raceMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
         // PUT api/<RaceController>/5
