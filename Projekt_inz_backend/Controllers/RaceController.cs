@@ -30,12 +30,12 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<RaceController>/5
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_mapper.Map<RaceDto>(_racerepos.GetRace(id)));
         }
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public IActionResult GetByName(string name)
         {
             return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRace(name)));
@@ -59,15 +59,29 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // PUT api/<RaceController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateRace([FromBody] RaceDto updatedRace)
         {
+            var raceMap = _mapper.Map<Race>(updatedRace);
+            if (!_racerepos.UpdateRace(raceMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
         // DELETE api/<RaceController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult DeleteRace(RaceDto race)
         {
+            var raceMap = _mapper.Map<Race>(race);
+            if (!_racerepos.DeleteRace(raceMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }

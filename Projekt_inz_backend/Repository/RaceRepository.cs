@@ -21,6 +21,12 @@ namespace Projekt_inz_backend.Repository
             return Save();
         }
 
+        public bool DeleteRace(Race race)
+        {
+            _context.Remove(race);
+            return Save();
+        }
+
         public Race GetRace(int id)
         {
             return _context.Races.Where(b => b.raceID == id).FirstOrDefault();
@@ -40,6 +46,12 @@ namespace Projekt_inz_backend.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateRace(Race race)
+        {
+            _context.Update(race);
+            return Save();
         }
     }
 }
