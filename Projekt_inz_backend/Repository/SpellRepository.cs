@@ -62,6 +62,11 @@ namespace Projekt_inz_backend.Repository
 
         public bool DeleteSpell(Spell spell)
         {
+            var spellused = _context.spellsForClasses.Where(b => b.spellID == spell.spellID).ToList();
+            foreach (var c in spellused)
+            {
+                _context.Remove(c);
+            }
             _context.Remove(spell);
             return Save();
         }

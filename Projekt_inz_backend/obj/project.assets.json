@@ -3428,11 +3428,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Piotoms\\source\\repos\\Projekt_inz_backend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
+      "projectUniqueName": "C:\\Users\\Piotoms\\source\\repos\\Nowy folder\\InzynierBackend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
       "projectName": "Projekt_inz_backend",
-      "projectPath": "C:\\Users\\Piotoms\\source\\repos\\Projekt_inz_backend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
+      "projectPath": "C:\\Users\\Piotoms\\source\\repos\\Nowy folder\\InzynierBackend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
       "packagesPath": "C:\\Users\\Piotoms\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Piotoms\\source\\repos\\Projekt_inz_backend\\Projekt_inz_backend\\obj\\",
+      "outputPath": "C:\\Users\\Piotoms\\source\\repos\\Nowy folder\\InzynierBackend\\Projekt_inz_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Piotoms\\AppData\\Roaming\\NuGet\\NuGet.Config",

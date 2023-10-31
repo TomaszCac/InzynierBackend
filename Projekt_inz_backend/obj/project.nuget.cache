@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XjgUnJ5ugv3kzxd+kpAddVxn8lLnOFnh272QgQD3pZPw1gknXxtL2jlmTASLGkT/IEgPApgRA0Y+oD8Vvkop9w==",
+  "dgSpecHash": "Rj7ZK9z1J3RzNUP1Wz739OIa0swY7DriL0LZmG2fY+gDq5GHh9EVOl3hMQUG36vE/puzIFmDZdwp+yX8Uvm6MA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Piotoms\\source\\repos\\Projekt_inz_backend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
+  "projectFilePath": "C:\\Users\\Piotoms\\source\\repos\\Nowy folder\\InzynierBackend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Piotoms\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
