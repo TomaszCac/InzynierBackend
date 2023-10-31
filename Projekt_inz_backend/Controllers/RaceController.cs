@@ -1,0 +1,61 @@
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Projekt_inz_backend.Data;
+using Projekt_inz_backend.Dto;
+using Projekt_inz_backend.Interfaces;
+using Projekt_inz_backend.Models;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace Projekt_inz_backend.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RaceController : ControllerBase
+    {
+        private readonly IRaceRepository _racerepos;
+        private readonly IMapper _mapper;
+
+        // GET: api/<RaceController>
+
+        public RaceController(IRaceRepository racerepos, IMapper mapper)
+        {
+            _racerepos = racerepos;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRaces()));
+        }
+
+        // GET api/<RaceController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_mapper.Map<RaceDto>(_racerepos.GetRace(id)));
+        }
+        [HttpGet("{name}")]
+        public IActionResult GetByName(string name)
+        {
+            return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRace(name)));
+        }
+        // POST api/<RaceController>
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
+
+        // PUT api/<RaceController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE api/<RaceController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+    }
+}
