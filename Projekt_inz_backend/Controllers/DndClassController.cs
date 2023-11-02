@@ -31,33 +31,65 @@ namespace Projekt_inz_backend.Controllers
             return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.getDndClasses()));
         }
 
-        // GET api/dndclass?id=1
-        [HttpGet("{id}")]
+        // GET api/dndclass/id/1
+        [HttpGet("id/{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_mapper.Map<DndClassDto>(_dndclassrepos.getDndClass(id)));
         }
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public IActionResult GetByName(string name)
         {
             return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(name)));
         }
+        //GET api/dndclass/spells/1
+        [HttpGet("spells/{id}")]
+        public IActionResult GetSpells(int id)
+        {
+            return Ok(_mapper.Map<List<SpellDto>>(_dndclassrepos.GetClassSpells(id)));
+        }
         // POST api/database
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateDndClass(int ownerid, [FromBody] DndClassDto dndClass)
         {
+            if (dndClass == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var dndClassMap = _mapper.Map<DndClass>(dndClass);
+
+            if (!_dndclassrepos.CreateDndClass(ownerid, dndClassMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/database/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/database
+        [HttpPut]
+        public IActionResult UpdateDndClass([FromBody] DndClassDto dndClass)
         {
+            var dndClassMap = _mapper.Map<DndClass>(dndClass);
+            if (!_dndclassrepos.UpdateDndClass(dndClassMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/database/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/database
+        [HttpDelete]
+        public IActionResult DeleteDndClass(DndClassDto dndClass)
         {
+            var dndClassMap = _mapper.Map<DndClass>(dndClass);
+            if (!_dndclassrepos.DeleteDndClass(dndClassMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
