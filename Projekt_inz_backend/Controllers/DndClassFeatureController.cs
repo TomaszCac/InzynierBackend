@@ -36,20 +36,46 @@ namespace Projekt_inz_backend.Controllers
 
         // POST api/<DndClassFeatureController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateDndClassFeature(int classid, [FromBody] DndClassFeatureDto dndClassFeature)
         {
+            if (dndClassFeature == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var dndClassFeatureMap = _mapper.Map<DndClassFeature>(dndClassFeature);
+
+            if (!_dndclassrepos.CreateClassFeature(classid, dndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/<DndClassFeatureController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<DndClassFeatureController>
+        [HttpPut]
+        public IActionResult UpdateClassFeature([FromBody] DndClassFeatureDto dndClassFeature)
         {
+            var dndClassFeatureMap = _mapper.Map<DndClassFeature>(dndClassFeature);
+            if (!_dndclassrepos.UpdateClassFeature(dndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<DndClassFeatureController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<DndClassFeatureController>
+        [HttpDelete]
+        public IActionResult Delete(DndClassFeatureDto dndClassFeature)
         {
+            var dndClassFeatureMap = _mapper.Map<DndClassFeature>(dndClassFeature);
+            if (!_dndclassrepos.DeleteClassFeature(dndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z Usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
