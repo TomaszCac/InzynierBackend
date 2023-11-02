@@ -28,12 +28,12 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<SpellForClassController>/5
-        [HttpGet("{classid}")]
-        public IActionResult GetByClass(int classId)
+        [HttpGet("spells/{classid}")]
+        public IActionResult GetByClass(int classid)
         {
-            return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassByClass(classId)));
+            return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassByClass(classid)));
         }
-        [HttpGet("{spellid}")]
+        [HttpGet("classes/{spellid}")]
         public IActionResult GetBySpell(int spellid)
         {
             return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassBySpell(spellid)));
@@ -41,20 +41,39 @@ namespace Projekt_inz_backend.Controllers
 
         // POST api/<SpellForClassController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateSpellForClass(int spellid, int classid)
         {
+            if (!_spellforclassrepos.CreateSpellForClass(spellid, classid))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/<SpellForClassController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<SpellForClassController>
+        [HttpPut]
+        public IActionResult UpdateSpellForClass(int classold, int classnew, int spellold, int spellnew)
         {
+            if (!_spellforclassrepos.UpdateSpellForClass(classold, classnew, spellold, spellnew))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<SpellForClassController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<SpellForClassController>
+        [HttpDelete]
+        public IActionResult DeleteSpellForClass(SpellForClassDto spellForClass)
         {
+            var spellForClassMap = _mapper.Map<SpellForClass>(spellForClass);
+            if (!_spellforclassrepos.DeleteSpellForClass(spellForClassMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
