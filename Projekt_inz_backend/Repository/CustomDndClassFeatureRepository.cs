@@ -12,9 +12,41 @@ namespace Projekt_inz_backend.Repository
         {
             _context = context;
         }
+
+        public bool CreateCustomDndClassFeature(int classId, CustomDndClassFeature customFeature)
+        {
+            var classEntity = _context.dndClasses.Where(b => b.classID == classId).FirstOrDefault();
+            customFeature.usedBy = classEntity;
+            _context.Add(customFeature);
+            return Save();
+        }
+
+        public bool DeleteCustomDndClassFeature(CustomDndClassFeature customFeature)
+        {
+            _context.Remove(customFeature);
+            return Save();
+        }
+
+        public ICollection<CustomDndClassFeature> GetCustomDndClassFeature(int classId)
+        {
+            return _context.customDndClassFeatures.Where(b => b.usedBy.classID == classId).ToList();
+        }
+
         public ICollection<CustomDndClassFeature> GetCustomDndClassFeatures()
         {
             return _context.customDndClassFeatures.OrderBy(b => b.featureID).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateCustomDndClassFeature(CustomDndClassFeature customFeature)
+        {
+            _context.Update(customFeature);
+            return Save();
         }
     }
 }

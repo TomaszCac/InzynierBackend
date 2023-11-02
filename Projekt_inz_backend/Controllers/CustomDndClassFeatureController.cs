@@ -28,28 +28,54 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<CustomDndClassFeatureController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{classid}")]
+        public IActionResult Get(int classid)
         {
-            return "value";
+            return Ok(_mapper.Map<List<CustomDndClassFeatureDto>>(_customclassfeaturerepos.GetCustomDndClassFeature(classid)));
         }
 
         // POST api/<CustomDndClassFeatureController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateCustomDndClassFeature(int classid, [FromBody] CustomDndClassFeatureDto customFeature)
         {
+            if (customFeature == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var customDndClassFeatureMap = _mapper.Map<CustomDndClassFeature>(customFeature);
+
+            if (!_customclassfeaturerepos.CreateCustomDndClassFeature(classid, customDndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/<CustomDndClassFeatureController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<CustomDndClassFeatureController>
+        [HttpPut]
+        public IActionResult UpdateCustomDndClassFeature([FromBody] CustomDndClassFeatureDto customFeature)
         {
+            var customDndClassFeatureMap = _mapper.Map<CustomDndClassFeature>(customFeature);
+            if (!_customclassfeaturerepos.UpdateCustomDndClassFeature(customDndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<CustomDndClassFeatureController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<CustomDndClassFeatureController>
+        [HttpDelete]
+        public IActionResult DeleteCustomDndClassFeature([FromBody] CustomDndClassFeatureDto customFeature)
         {
+            var customDndClassFeatureMap = _mapper.Map<CustomDndClassFeature>(customFeature);
+            if (!_customclassfeaturerepos.DeleteCustomDndClassFeature(customDndClassFeatureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
