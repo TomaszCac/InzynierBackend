@@ -45,6 +45,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateRace(int ownerId, [FromBody] RaceDto race)
         {
+            race.raceID = null;
             if (race == null)
             {
                 return BadRequest(ModelState);

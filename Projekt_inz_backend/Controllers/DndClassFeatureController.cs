@@ -38,6 +38,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateDndClassFeature(int classid, [FromBody] DndClassFeatureDto dndClassFeature)
         {
+            dndClassFeature.featureID = null;
             if (dndClassFeature == null)
             {
                 return BadRequest(ModelState);

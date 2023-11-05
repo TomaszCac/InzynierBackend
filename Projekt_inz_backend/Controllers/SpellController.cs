@@ -60,6 +60,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateSpell(int ownerId, SpellDto spell)
         {
+            spell.spellID = null;
             if (spell == null)
             {
                 return BadRequest(ModelState);

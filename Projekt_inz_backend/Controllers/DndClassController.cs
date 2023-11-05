@@ -51,6 +51,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateDndClass(int ownerid, [FromBody] DndClassDto dndClass)
         {
+            dndClass.classID = null;
             if (dndClass == null)
             {
                 return BadRequest(ModelState);

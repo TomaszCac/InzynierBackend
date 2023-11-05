@@ -2,7 +2,7 @@
 {
     public class CustomRaceFeatureDto
     {
-        public int featureID { get; set; }
+        public int? featureID { get; set; }
         public string featureDesc { get; set; }
     }
 }

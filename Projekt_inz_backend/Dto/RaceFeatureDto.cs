@@ -2,7 +2,7 @@
 {
     public class RaceFeatureDto
     {
-        public int featureID { get; set; }
+        public int? featureID { get; set; }
         public string abilityScoreIncrease { get; set; }
         public string age { get; set; }
         public string alignment { get; set; }

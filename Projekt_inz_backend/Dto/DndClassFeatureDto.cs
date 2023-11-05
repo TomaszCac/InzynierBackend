@@ -2,7 +2,7 @@
 {
     public class DndClassFeatureDto
     {
-        public int featureID { get; set; }
+        public int? featureID { get; set; }
         public string classDescription { get; set; }
         public string multiclassReq { get; set; }
         public string hitDice { get; set; }
