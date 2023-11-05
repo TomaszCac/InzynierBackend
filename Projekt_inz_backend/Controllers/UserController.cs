@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
 
@@ -34,9 +35,37 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("register")]
+        public IActionResult Register(UserDto user)
         {
+            if (user == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var userMap = _mapper.Map<User>(user);
+
+            if (!_userrepos.CreateUser(userMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Utworzono nowego uzytkownika");
+        }
+        [HttpGet("login")]
+        public IActionResult Login([FromQuery]UserDto request)
+        {
+            if (!_userrepos.VerifyUsername(request.username))
+            {
+                ModelState.AddModelError("", "Nie znaleziono podanego uzytkownika");
+                return BadRequest(ModelState);
+            }
+            if (!_userrepos.VerifyPassword(request))
+            {
+                ModelState.AddModelError("", "Bledne haslo");
+                return BadRequest(ModelState);
+            }
+
+            return Ok(_userrepos.CreateToken(request));
         }
 
         // PUT api/<UserController>/5

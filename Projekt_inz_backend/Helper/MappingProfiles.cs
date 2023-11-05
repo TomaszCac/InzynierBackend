@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Models;
+using System.Security.Cryptography;
 
 namespace Projekt_inz_backend.Helper
 {
@@ -28,8 +29,23 @@ namespace Projekt_inz_backend.Helper
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();
             CreateMap<CustomDndClassFeatureDto, CustomDndClassFeature>();
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>().ConvertUsing(new UserDtoConverter());
         }
-
+        public class UserDtoConverter : ITypeConverter<UserDto, User>
+        {
+            public User Convert(UserDto source, User destination, ResolutionContext context)
+            {
+                User user = new User();
+                using (var hmac = new HMACSHA512())
+                {
+                    user.passwordSalt = hmac.Key;
+                    user.passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(source.password));
+                }
+                user.username = source.username;
+                user.email = source.email;
+                return user;
+            }
+        }
         public class StringArrayConverter : ITypeConverter<string[,], string>
         {
             public string Convert(string[,] source, string destination, ResolutionContext context)
