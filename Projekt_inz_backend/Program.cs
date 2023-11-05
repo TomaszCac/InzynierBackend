@@ -7,8 +7,7 @@ using Projekt_inz_backend.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDndClassRepository, DndClassRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();

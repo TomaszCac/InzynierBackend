@@ -27,7 +27,6 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            
             return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.getDndClasses()));
         }
 
