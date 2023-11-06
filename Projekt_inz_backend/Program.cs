@@ -6,6 +6,7 @@ using Projekt_inz_backend.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -26,7 +27,15 @@ builder.Services.AddDbContext<DndDatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DndDatabase")));
 
 
+
 var app = builder.Build();
+// global cors policy
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+                                        //.WithOrigins("https://localhost:44351")); // Allow only this origin can also have multiple origins separated with comma
+    .AllowCredentials()); // allow credentials
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
