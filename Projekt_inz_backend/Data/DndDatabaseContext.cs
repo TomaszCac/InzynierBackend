@@ -21,6 +21,11 @@ namespace Projekt_inz_backend.Data
         public DbSet<SpellForClass> spellsForClasses { get; set; }
         public DbSet<Spell> Spells { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Enemy> Enemies { get; set; }
+        public DbSet<EnemyActionEconomy> enemyActions { get; set; }
+        public DbSet<EnemyFeature> enemyFeatures { get; set; }
+        public DbSet<Item> items { get; set; }
+
 
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)

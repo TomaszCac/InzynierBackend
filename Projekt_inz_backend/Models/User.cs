@@ -12,6 +12,8 @@ namespace Projekt_inz_backend.Models
         public ICollection<Spell> spells { get; set; }
         public ICollection<DndClass> dndClasses { get; set; }
         public ICollection<Race> races { get; set; }
+        public ICollection<Enemy> enemies { get; set; }
+        public ICollection<Item> items { get; set; }
 
     }
 }
