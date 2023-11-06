@@ -24,7 +24,7 @@ namespace Projekt_inz_backend.Data
         public DbSet<Enemy> Enemies { get; set; }
         public DbSet<EnemyActionEconomy> enemyActions { get; set; }
         public DbSet<EnemyFeature> enemyFeatures { get; set; }
-        public DbSet<Item> items { get; set; }
+        public DbSet<Item> Items { get; set; }
 
 
        

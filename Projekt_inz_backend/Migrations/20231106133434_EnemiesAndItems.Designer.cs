@@ -587,7 +587,7 @@ namespace Projekt_inz_backend.Migrations
             modelBuilder.Entity("Projekt_inz_backend.Models.Item", b =>
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
-                        .WithMany("items")
+                        .WithMany("Items")
                         .HasForeignKey("owneruserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -680,7 +680,7 @@ namespace Projekt_inz_backend.Migrations
 
                     b.Navigation("enemies");
 
-                    b.Navigation("items");
+                    b.Navigation("Items");
 
                     b.Navigation("races");
 

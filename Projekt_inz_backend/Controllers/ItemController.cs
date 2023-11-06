@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,28 +29,60 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<ItemController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("id/{id}")]
+        public IActionResult GetItem(int id)
         {
-            return "value";
+            return Ok(_mapper.Map<ItemDto>(_itemrepos.GetItem(id)));
+        }
+        [HttpGet("owner/{ownerid}")]
+        public IActionResult GetItemsByOwner(int ownerid)
+        {
+            return Ok(_mapper.Map<List<ItemDto>>(_itemrepos.GetItemsByOwner(ownerid)));
         }
 
         // POST api/<ItemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateItem(int ownerid, ItemDto item)
         {
+            item.itemID = null;
+            if (item == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var itemMap = _mapper.Map<Item>(item);
+
+            if (!_itemrepos.CreateItem(ownerid, itemMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/<ItemController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<ItemController>
+        [HttpPut]
+        public IActionResult UpdateItem(ItemDto item)
         {
+            var itemMap = _mapper.Map<Item>(item);
+            if (!_itemrepos.UpdateItem(itemMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<ItemController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<ItemController>
+        [HttpDelete]
+        public IActionResult DeleteItem(ItemDto item)
         {
+            var itemMap = _mapper.Map<Item>(item);
+            if (!_itemrepos.DeleteItem(itemMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projekt_inz_backend.Data;
 
@@ -11,9 +12,11 @@ using Projekt_inz_backend.Data;
 namespace Projekt_inz_backend.Migrations
 {
     [DbContext(typeof(DndDatabaseContext))]
-    partial class DndDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231106183125_Items")]
+    partial class Items
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
