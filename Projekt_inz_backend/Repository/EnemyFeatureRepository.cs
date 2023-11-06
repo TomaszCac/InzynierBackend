@@ -17,6 +17,7 @@ namespace Projekt_inz_backend.Repository
         {
             var enemyEntity = _context.Enemies.Where(b => b.EnemyID == feature.enemyID).FirstOrDefault();
             feature.usedBy = enemyEntity;
+            _context.Add(feature);
             return Save();
         }
 

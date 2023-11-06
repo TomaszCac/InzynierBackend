@@ -12,6 +12,7 @@ namespace Projekt_inz_backend.Models
         public string size { get; set; }
         public string speed { get; set; }
         public string raceDescription { get; set; }
+        public string languages {  get; set; }
         public int raceID { get; set; }
         public Race usedBy { get; set; }
 
