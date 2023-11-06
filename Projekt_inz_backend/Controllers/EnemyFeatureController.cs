@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,28 +29,60 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<EnemyFeatureController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("id/{id}")]
+        public IActionResult GetEnemyFeatureById(int id)
         {
-            return "value";
+            return Ok(_mapper.Map<EnemyFeatureDto>(_enemyfeaturerepos.GetEnemyFeatureById(id)));
+        }
+        [HttpGet("enemy/{enemyid}")]
+        public IActionResult GetEnemyFeatureByEnemy(int enemyid)
+        {
+            return Ok(_mapper.Map<EnemyFeatureDto>(_enemyfeaturerepos.GetEnemyFeatureByEnemy(enemyid)));
         }
 
         // POST api/<EnemyFeatureController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateEnemyFeature([FromBody] EnemyFeatureDto feature)
         {
+            feature.featureID = null;
+            if (feature == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var featureMap = _mapper.Map<EnemyFeature>(feature);
+
+            if (!_enemyfeaturerepos.CreateEnemyFeature(featureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
         // PUT api/<EnemyFeatureController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateEnemyFeature(EnemyFeatureDto feature)
         {
+            var featureMap = _mapper.Map<EnemyFeature>(feature);
+            if (!_enemyfeaturerepos.UpdateEnemyFeature(featureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
         // DELETE api/<EnemyFeatureController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult DeleteEnemyFeature(EnemyFeatureDto feature)
         {
+            var featureMap = _mapper.Map<EnemyFeature>(feature);
+            if (!_enemyfeaturerepos.DeleteEnemyFeature(featureMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
