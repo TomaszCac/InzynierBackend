@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Identity.Client;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Models;
 
@@ -11,6 +12,8 @@ namespace Projekt_inz_backend.Helper
         {
             CreateMap<string, string[,]>().ConvertUsing(new StringConverter());
             CreateMap<string[,], string>().ConvertUsing(new StringArrayConverter());
+            CreateMap<string[], string>().ConvertUsing(new OneDimStringArrayConverter());
+            CreateMap<string, string[]>().ConvertUsing(new OneStringConverter());
             CreateMap<Spell, SpellDto>();
             CreateMap<SpellDto, Spell>();
             CreateMap<DndClass, DndClassDto>();
@@ -54,6 +57,49 @@ namespace Projekt_inz_backend.Helper
                             result = result + "@";
                     }
                     result = result + "~";
+                }
+                return result;
+            }
+        }
+        public class OneStringConverter : ITypeConverter<string, string[]>
+        {
+            public string[] Convert(string source, string[] destination, ResolutionContext context)
+            {
+                int columnMeter = 0;
+                bool row = true;
+                for (int i = 0; i < source.Length; i++)
+                {
+                    if (source[i] == '@' && row)
+                    {
+                        columnMeter++;
+                    }
+                }
+                string[] x = new string[columnMeter];
+                columnMeter = 0;
+                int helper = 0;
+                for (int i = 0; i < source.Length; i++)
+                {
+                    if (source[i] == '@')
+                    {
+                        x[columnMeter] = source.Substring(helper, i - helper);
+                        helper = i + 1;
+                        columnMeter++;
+                    }
+                }
+                return x;
+            }
+        }
+        public class OneDimStringArrayConverter : ITypeConverter<string[], string>
+        {
+            public string Convert(string[] source, string destination, ResolutionContext context)
+            {
+                int length = source.Length;
+                string result = "";
+                for (int x = 0; x < length; x++)
+                {
+                    result = result + source[x];
+                    result = result + "@";
+                    
                 }
                 return result;
             }

@@ -7,6 +7,7 @@ namespace Projekt_inz_backend.Models
         [Key]
         public int raceID { get; set; }
         public string raceName { get; set; }
+        public string tableHeader {  get; set; }
         public string tableData { get; set; }
         public int? inheritedRaceID { get; set; }
         public User owner { get; set; }

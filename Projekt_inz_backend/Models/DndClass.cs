@@ -9,6 +9,7 @@ namespace Projekt_inz_backend.Models
         [Key]
         public int classID { get; set; }
         public string className { get; set; }
+        public string tableHeader {  get; set; }
         public string tableData { get; set; }
         public int? inheritedClassID { get; set; }
         public User owner { get; set; }
