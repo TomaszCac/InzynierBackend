@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
+using System;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,28 +30,55 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<EnemyActionEconomyController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("enemy/{enemyid}")]
+        public IActionResult GetEnemyActionEconomyByEnemy(int enemyid)
         {
-            return "value";
+            return Ok(_mapper.Map<List<EnemyActionEconomyDto>>(_enemyactionrepos.GetEnemyActionEconomyByEnemy(enemyid)));
         }
 
         // POST api/<EnemyActionEconomyController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateEnemyActionEconomy(int enemyid,[FromBody] EnemyActionEconomyDto action)
         {
+            action.actionID = null;
+            if (action == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var actionMap = _mapper.Map<EnemyActionEconomy>(action);
+
+            if (!_enemyactionrepos.CreateEnemyActionEconomy(enemyid, actionMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
-        // PUT api/<EnemyActionEconomyController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<EnemyActionEconomyController>
+        [HttpPut]
+        public IActionResult UpdateEnemyActionEconomy(EnemyActionEconomyDto updatedAction)
         {
+            var actionMap = _mapper.Map<EnemyActionEconomy>(updatedAction);
+            if (!_enemyactionrepos.UpdateEnemyActionEconomy(actionMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<EnemyActionEconomyController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<EnemyActionEconomyController>
+        [HttpDelete]
+        public IActionResult DeleteEnemyActionEconomy(EnemyActionEconomyDto action)
         {
+            var actionMap = _mapper.Map<EnemyActionEconomy>(action);
+            if (!_enemyactionrepos.DeleteEnemyActionEconomy(actionMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
