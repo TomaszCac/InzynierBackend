@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
+using Projekt_inz_backend.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,16 +13,18 @@ namespace Projekt_inz_backend.Controllers
     public class EnemyActionEconomyController : ControllerBase
     {
         private readonly IEnemyActionEconomyRepository _enemyactionrepos;
+        private readonly IMapper _mapper;
 
-        public EnemyActionEconomyController(IEnemyActionEconomyRepository enemyactionrepos)
+        public EnemyActionEconomyController(IEnemyActionEconomyRepository enemyactionrepos, IMapper mapper)
         {
             _enemyactionrepos = enemyactionrepos;
+            _mapper = mapper;
         }
         // GET: api/<EnemyActionEconomyController>
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_enemyactionrepos.GetEnemyActionEconomies());
+            return Ok(_mapper.Map<List<EnemyActionEconomyDto>>(_enemyactionrepos.GetEnemyActionEconomies()));
         }
 
         // GET api/<EnemyActionEconomyController>/5

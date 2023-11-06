@@ -13,9 +13,45 @@ namespace Projekt_inz_backend.Repository
             _context = context;
         }
 
+        public bool CreateEnemy(int ownerid, Enemy enemy)
+        {
+            var ownerEntity = _context.Users.Where(b => b.userID == ownerid).FirstOrDefault();
+            enemy.owner = ownerEntity;
+            _context.Add(enemy);
+            return Save();
+        }
+
+        public bool DeleteEnemy(Enemy enemy)
+        {
+            _context.Remove(enemy);
+            return Save();
+        }
+
         public ICollection<Enemy> GetEnemies()
         {
             return _context.Enemies.ToList();
+        }
+
+        public ICollection<Enemy> GetEnemiesByOwner(int ownerid)
+        {
+            return _context.Enemies.Where(b => b.owner.userID == ownerid).ToList();
+        }
+
+        public Enemy GetEnemyById(int id)
+        {
+            return _context.Enemies.Where(b => b.EnemyID == id).FirstOrDefault();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateEnemy(Enemy enemy)
+        {
+            _context.Update(enemy);
+            return Save();
         }
     }
 }

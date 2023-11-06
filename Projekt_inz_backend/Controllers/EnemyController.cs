@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
+using Projekt_inz_backend.Models;
 using Projekt_inz_backend.Repository;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,41 +15,75 @@ namespace Projekt_inz_backend.Controllers
     public class EnemyController : ControllerBase
     {
         private readonly IEnemyRepository _enemyrepos;
+        private readonly IMapper _mapper;
 
-        public EnemyController(IEnemyRepository enemyrepos)
+        public EnemyController(IEnemyRepository enemyrepos, IMapper mapper)
         {
             _enemyrepos = enemyrepos;
+            _mapper = mapper;
         }
         // GET: api/<EnemyController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAllEnemies()
         {
-            return Ok(_enemyrepos.GetEnemies());
+            return Ok(_mapper.Map<List<EnemyDto>>(_enemyrepos.GetEnemies()));
         }
 
         // GET api/<EnemyController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("/owner/{ownerid}")]
+        public IActionResult GetEnemyByOwner(int ownerid)
         {
-            return "value";
+            return Ok(_mapper.Map<List<EnemyDto>>(_enemyrepos.GetEnemiesByOwner(ownerid)));
+        }
+        [HttpGet("/id/{id}")]
+        public IActionResult GetEnemyById(int id)
+        {
+            return Ok(_mapper.Map<EnemyDto>(_enemyrepos.GetEnemyById(id)));
         }
 
         // POST api/<EnemyController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateEnemy(int ownerid, [FromBody] EnemyDto enemy)
         {
+            enemy.EnemyID = null;
+            if (enemy == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var enemyMap = _mapper.Map<Enemy>(enemy);
+
+            if (!_enemyrepos.CreateEnemy(ownerid, enemyMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly created");
         }
 
         // PUT api/<EnemyController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateEnemy(EnemyDto enemy)
         {
+            var enemyMap = _mapper.Map<Enemy>(enemy);
+            if (!_enemyrepos.UpdateEnemy(enemyMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z aktualizacja");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
         // DELETE api/<EnemyController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete(EnemyDto enemy)
         {
+            var enemyMap = _mapper.Map<Enemy>(enemy);
+            if (!_enemyrepos.DeleteEnemy(enemyMap))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z usunieciem");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }
