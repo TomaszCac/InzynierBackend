@@ -6,6 +6,8 @@
         public string className { get; set; }
         public string[] tableHeader { get; set; }
         public string[,] tableData { get; set; }
+        public string[] spellTableHeader { get; set; }
+        public string[,] spellTableData { get; set; }
         public int? inheritedClassID { get; set; }
         public string classDescription { get; set; }
         public string multiclassReq { get; set; }
