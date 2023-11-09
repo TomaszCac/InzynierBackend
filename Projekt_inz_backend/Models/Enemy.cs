@@ -27,7 +27,7 @@ namespace Projekt_inz_backend.Models
         public string languages { get; set; }
         public string dangerLvl { get; set; }
         public string proficencyBonus { get; set; }
-        public User owner { get; set; }
+        public User? owner { get; set; }
         public ICollection<EnemyActionEconomy> actionEcononomy { get; set; }
     }
 }

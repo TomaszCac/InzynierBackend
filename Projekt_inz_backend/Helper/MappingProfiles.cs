@@ -26,6 +26,10 @@ namespace Projekt_inz_backend.Helper
             CreateMap<EnemyDto, Enemy>();
             CreateMap<EnemyActionEconomy,  EnemyActionEconomyDto>();
             CreateMap<EnemyActionEconomyDto, EnemyActionEconomy>();
+            CreateMap<DndSubclass, DndSubclassDto>();
+            CreateMap<DndSubclassDto, DndSubclass>();
+            CreateMap<CustomDndSubclassFeature, CustomDndSubclassFeatureDto>();
+            CreateMap<CustomDndSubclassFeatureDto, CustomDndSubclassFeature>();
             CreateMap<SpellForClass, SpellForClassDto>();
             CreateMap<SpellForClassDto, SpellForClass>();
             CreateMap<CustomRaceFeature, CustomRaceFeatureDto>();

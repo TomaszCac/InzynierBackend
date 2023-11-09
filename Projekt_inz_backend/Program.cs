@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<ICustomDndSubclassFeatureRepository, CustomDndSubclassFeatureRepository>();
+builder.Services.AddScoped<IDndSubclassRepository, DndSubclassRepository>();
 builder.Services.AddScoped<IEnemyActionEconomyRepository, EnemyActionEconomyRepository>();
 builder.Services.AddScoped<IEnemyRepository, EnemyRepository>();
 builder.Services.AddScoped<IDndClassRepository, DndClassRepository>();

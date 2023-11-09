@@ -12,8 +12,8 @@ using Projekt_inz_backend.Data;
 namespace Projekt_inz_backend.Migrations
 {
     [DbContext(typeof(DndDatabaseContext))]
-    [Migration("20231109112125_MergedRaces")]
-    partial class MergedRaces
+    [Migration("20231109201114_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,32 @@ namespace Projekt_inz_backend.Migrations
                     b.HasIndex("usedByclassID");
 
                     b.ToTable("customDndClassFeatures");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.CustomDndSubclassFeature", b =>
+                {
+                    b.Property<int>("featureID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
+
+                    b.Property<string>("featureDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("featureName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("usedBysubclassID")
+                        .HasColumnType("int");
+
+                    b.HasKey("featureID");
+
+                    b.HasIndex("usedBysubclassID");
+
+                    b.ToTable("customDndSubclassFeatures");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.CustomRaceFeature", b =>
@@ -120,7 +146,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("owneruserID")
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.Property<string>("savingThrows")
@@ -128,6 +154,14 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("skills")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("spellTableData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("spellTableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -152,6 +186,37 @@ namespace Projekt_inz_backend.Migrations
                     b.HasIndex("owneruserID");
 
                     b.ToTable("dndClasses");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.DndSubclass", b =>
+                {
+                    b.Property<int>("subclassID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("subclassID"));
+
+                    b.Property<string>("SubclassDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("inheritedClassclassID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("owneruserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("subclassName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("subclassID");
+
+                    b.HasIndex("inheritedClassclassID");
+
+                    b.HasIndex("owneruserID");
+
+                    b.ToTable("dndSubclasses");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Enemy", b =>
@@ -198,7 +263,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("owneruserID")
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.Property<string>("proficencyBonus")
@@ -296,7 +361,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("owneruserID")
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.Property<string>("rarity")
@@ -341,7 +406,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("owneruserID")
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.Property<string>("raceDescription")
@@ -383,7 +448,7 @@ namespace Projekt_inz_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("spellID"));
 
-                    b.Property<int>("owneruserID")
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.Property<string>("spellAHL")
@@ -479,6 +544,17 @@ namespace Projekt_inz_backend.Migrations
                     b.Navigation("usedBy");
                 });
 
+            modelBuilder.Entity("Projekt_inz_backend.Models.CustomDndSubclassFeature", b =>
+                {
+                    b.HasOne("Projekt_inz_backend.Models.DndSubclass", "usedBy")
+                        .WithMany()
+                        .HasForeignKey("usedBysubclassID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("usedBy");
+                });
+
             modelBuilder.Entity("Projekt_inz_backend.Models.CustomRaceFeature", b =>
                 {
                     b.HasOne("Projekt_inz_backend.Models.Race", "usedBy")
@@ -494,9 +570,24 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
                         .WithMany("dndClasses")
-                        .HasForeignKey("owneruserID")
+                        .HasForeignKey("owneruserID");
+
+                    b.Navigation("owner");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.DndSubclass", b =>
+                {
+                    b.HasOne("Projekt_inz_backend.Models.DndClass", "inheritedClass")
+                        .WithMany("dndSubclasses")
+                        .HasForeignKey("inheritedClassclassID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Projekt_inz_backend.Models.User", "owner")
+                        .WithMany("dndSubclasss")
+                        .HasForeignKey("owneruserID");
+
+                    b.Navigation("inheritedClass");
 
                     b.Navigation("owner");
                 });
@@ -505,9 +596,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
                         .WithMany("enemies")
-                        .HasForeignKey("owneruserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("owneruserID");
 
                     b.Navigation("owner");
                 });
@@ -527,9 +616,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
                         .WithMany("items")
-                        .HasForeignKey("owneruserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("owneruserID");
 
                     b.Navigation("owner");
                 });
@@ -538,9 +625,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
                         .WithMany("races")
-                        .HasForeignKey("owneruserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("owneruserID");
 
                     b.Navigation("owner");
                 });
@@ -549,9 +634,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
                         .WithMany("spells")
-                        .HasForeignKey("owneruserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("owneruserID");
 
                     b.Navigation("owner");
                 });
@@ -577,6 +660,8 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.Navigation("customFeatures");
 
+                    b.Navigation("dndSubclasses");
+
                     b.Navigation("usesSpells");
                 });
 
@@ -598,6 +683,8 @@ namespace Projekt_inz_backend.Migrations
             modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
                 {
                     b.Navigation("dndClasses");
+
+                    b.Navigation("dndSubclasss");
 
                     b.Navigation("enemies");
 

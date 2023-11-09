@@ -14,6 +14,7 @@ namespace Projekt_inz_backend.Models
         public ICollection<Race> races { get; set; }
         public ICollection<Enemy> enemies { get; set; }
         public ICollection<Item> items { get; set; }
+        public ICollection<DndSubclass> dndSubclasss { get; set;}
 
     }
 }

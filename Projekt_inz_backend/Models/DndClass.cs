@@ -25,8 +25,9 @@ namespace Projekt_inz_backend.Models
         public string savingThrows { get; set; }
         public string skills { get; set; }
         public string equipment { get; set; }
-        public User owner { get; set; }
+        public User? owner { get; set; }
         public ICollection<SpellForClass> usesSpells { get; set; }
+        public ICollection<DndSubclass> dndSubclasses { get; set; }
         public ICollection<CustomDndClassFeature> customFeatures { get; set; }
 
     }

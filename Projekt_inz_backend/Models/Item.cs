@@ -10,6 +10,6 @@ namespace Projekt_inz_backend.Models
         public string rarity { get; set; }
         public string description { get; set; }
         public string weight {  get; set; }
-        public User owner { get; set; }
+        public User? owner { get; set; }
     }
 }

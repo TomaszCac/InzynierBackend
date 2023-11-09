@@ -17,7 +17,7 @@ namespace Projekt_inz_backend.Models
         public string speed { get; set; }
         public string raceDescription { get; set; }
         public string languages { get; set; }
-        public User owner { get; set; }
+        public User? owner { get; set; }
         public ICollection<CustomRaceFeature> customFeatures { get; set; }
     }
 }

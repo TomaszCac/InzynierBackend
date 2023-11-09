@@ -16,7 +16,7 @@ namespace Projekt_inz_backend.Models
         public int spellLevel { get; set; }
         public string spellDesc { get; set; }
         public string spellAHL { get; set; }
-        public User owner { get; set; }
+        public User? owner { get; set; }
         public ICollection<SpellForClass> usedBy { get; set; }
     }
 }

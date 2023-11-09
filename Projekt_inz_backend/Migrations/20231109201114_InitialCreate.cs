@@ -34,8 +34,21 @@ namespace Projekt_inz_backend.Migrations
                     className = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     tableHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     tableData = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    spellTableHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    spellTableData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inheritedClassID = table.Column<int>(type: "int", nullable: true),
-                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                    classDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    multiclassReq = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    hitDice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    hitPointsAtFirst = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    hitPointsAtHigh = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    armorProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    weaponProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    toolsProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    savingThrows = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    equipment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,8 +57,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_dndClasses_Users_owneruserID",
                         column: x => x.owneruserID,
                         principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userID");
                 });
 
             migrationBuilder.CreateTable(
@@ -75,7 +87,7 @@ namespace Projekt_inz_backend.Migrations
                     languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     dangerLvl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     proficencyBonus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,8 +96,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_Enemies_Users_owneruserID",
                         column: x => x.owneruserID,
                         principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userID");
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +109,7 @@ namespace Projekt_inz_backend.Migrations
                     rarity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     weight = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,8 +118,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_Items_Users_owneruserID",
                         column: x => x.owneruserID,
                         principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userID");
                 });
 
             migrationBuilder.CreateTable(
@@ -121,7 +131,14 @@ namespace Projekt_inz_backend.Migrations
                     tableHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     tableData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inheritedRaceID = table.Column<int>(type: "int", nullable: true),
-                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                    abilityScoreIncrease = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    age = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    alignment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    size = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    raceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,8 +147,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_Races_Users_owneruserID",
                         column: x => x.owneruserID,
                         principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userID");
                 });
 
             migrationBuilder.CreateTable(
@@ -149,7 +165,7 @@ namespace Projekt_inz_backend.Migrations
                     spellLevel = table.Column<int>(type: "int", nullable: false),
                     spellDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     spellAHL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -158,8 +174,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_Spells_Users_owneruserID",
                         column: x => x.owneruserID,
                         principalTable: "Users",
-                        principalColumn: "userID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "userID");
                 });
 
             migrationBuilder.CreateTable(
@@ -184,30 +199,27 @@ namespace Projekt_inz_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "dndClassFeatures",
+                name: "dndSubclasses",
                 columns: table => new
                 {
-                    featureID = table.Column<int>(type: "int", nullable: false)
+                    subclassID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    classDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    multiclassReq = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    hitDice = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    hitPointsAtFirst = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    hitPointsAtHigh = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    armorProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    weaponProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    toolsProficency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    savingThrows = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    equipment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DndClassID = table.Column<int>(type: "int", nullable: false)
+                    subclassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubclassDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    inheritedClassclassID = table.Column<int>(type: "int", nullable: false),
+                    owneruserID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_dndClassFeatures", x => x.featureID);
+                    table.PrimaryKey("PK_dndSubclasses", x => x.subclassID);
                     table.ForeignKey(
-                        name: "FK_dndClassFeatures_dndClasses_DndClassID",
-                        column: x => x.DndClassID,
+                        name: "FK_dndSubclasses_Users_owneruserID",
+                        column: x => x.owneruserID,
+                        principalTable: "Users",
+                        principalColumn: "userID");
+                    table.ForeignKey(
+                        name: "FK_dndSubclasses_dndClasses_inheritedClassclassID",
+                        column: x => x.inheritedClassclassID,
                         principalTable: "dndClasses",
                         principalColumn: "classID",
                         onDelete: ReferentialAction.Cascade);
@@ -220,7 +232,8 @@ namespace Projekt_inz_backend.Migrations
                     actionID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     usedByEnemyID = table.Column<int>(type: "int", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    actionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    actionDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     actionType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -256,32 +269,6 @@ namespace Projekt_inz_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "raceFeatures",
-                columns: table => new
-                {
-                    featureID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    abilityScoreIncrease = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    age = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    alignment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    size = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    raceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    raceID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_raceFeatures", x => x.featureID);
-                    table.ForeignKey(
-                        name: "FK_raceFeatures_Races_raceID",
-                        column: x => x.raceID,
-                        principalTable: "Races",
-                        principalColumn: "raceID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "spellsForClasses",
                 columns: table => new
                 {
@@ -303,10 +290,36 @@ namespace Projekt_inz_backend.Migrations
                         principalColumn: "classID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "customDndSubclassFeatures",
+                columns: table => new
+                {
+                    featureID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    usedBysubclassID = table.Column<int>(type: "int", nullable: false),
+                    featureName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    featureDesc = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_customDndSubclassFeatures", x => x.featureID);
+                    table.ForeignKey(
+                        name: "FK_customDndSubclassFeatures_dndSubclasses_usedBysubclassID",
+                        column: x => x.usedBysubclassID,
+                        principalTable: "dndSubclasses",
+                        principalColumn: "subclassID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_customDndClassFeatures_usedByclassID",
                 table: "customDndClassFeatures",
                 column: "usedByclassID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_customDndSubclassFeatures_usedBysubclassID",
+                table: "customDndSubclassFeatures",
+                column: "usedBysubclassID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_customRaceFeatures_usedByraceID",
@@ -319,10 +332,14 @@ namespace Projekt_inz_backend.Migrations
                 column: "owneruserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_dndClassFeatures_DndClassID",
-                table: "dndClassFeatures",
-                column: "DndClassID",
-                unique: true);
+                name: "IX_dndSubclasses_inheritedClassclassID",
+                table: "dndSubclasses",
+                column: "inheritedClassclassID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_dndSubclasses_owneruserID",
+                table: "dndSubclasses",
+                column: "owneruserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enemies_owneruserID",
@@ -338,12 +355,6 @@ namespace Projekt_inz_backend.Migrations
                 name: "IX_Items_owneruserID",
                 table: "Items",
                 column: "owneruserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_raceFeatures_raceID",
-                table: "raceFeatures",
-                column: "raceID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Races_owneruserID",
@@ -368,10 +379,10 @@ namespace Projekt_inz_backend.Migrations
                 name: "customDndClassFeatures");
 
             migrationBuilder.DropTable(
-                name: "customRaceFeatures");
+                name: "customDndSubclassFeatures");
 
             migrationBuilder.DropTable(
-                name: "dndClassFeatures");
+                name: "customRaceFeatures");
 
             migrationBuilder.DropTable(
                 name: "enemyActions");
@@ -380,16 +391,16 @@ namespace Projekt_inz_backend.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "raceFeatures");
-
-            migrationBuilder.DropTable(
                 name: "spellsForClasses");
 
             migrationBuilder.DropTable(
-                name: "Enemies");
+                name: "dndSubclasses");
 
             migrationBuilder.DropTable(
                 name: "Races");
+
+            migrationBuilder.DropTable(
+                name: "Enemies");
 
             migrationBuilder.DropTable(
                 name: "Spells");
