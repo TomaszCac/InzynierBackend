@@ -24,8 +24,6 @@ namespace Projekt_inz_backend.Helper
             CreateMap<ItemDto, Item>();
             CreateMap<Enemy, EnemyDto>();
             CreateMap<EnemyDto, Enemy>();
-            CreateMap<EnemyFeature, EnemyFeatureDto>();
-            CreateMap<EnemyFeatureDto, EnemyFeature>();
             CreateMap<EnemyActionEconomy,  EnemyActionEconomyDto>();
             CreateMap<EnemyActionEconomyDto, EnemyActionEconomy>();
             CreateMap<SpellForClass, SpellForClassDto>();

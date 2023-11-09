@@ -8,6 +8,7 @@ namespace Projekt_inz_backend.Models
         [Key]
         public int featureID {  get; set; } 
         public DndClass usedBy { get; set; }
+        public string featureName { get; set; }
         public string featureDesc { get; set; }
 
 

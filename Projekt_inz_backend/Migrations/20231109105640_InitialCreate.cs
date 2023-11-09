@@ -32,6 +32,7 @@ namespace Projekt_inz_backend.Migrations
                     classID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     className = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tableHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     tableData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inheritedClassID = table.Column<int>(type: "int", nullable: true),
                     owneruserID = table.Column<int>(type: "int", nullable: false)
@@ -48,12 +49,76 @@ namespace Projekt_inz_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Enemies",
+                columns: table => new
+                {
+                    EnemyID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnemyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    size = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    race = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    armorClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    health = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    strength = table.Column<int>(type: "int", nullable: false),
+                    dexterity = table.Column<int>(type: "int", nullable: false),
+                    constitution = table.Column<int>(type: "int", nullable: false),
+                    inteligence = table.Column<int>(type: "int", nullable: false),
+                    wisdom = table.Column<int>(type: "int", nullable: false),
+                    charisma = table.Column<int>(type: "int", nullable: false),
+                    speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    savingThrows = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    immunes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    resistances = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    vulnerabilities = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    senses = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dangerLvl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    proficencyBonus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enemies", x => x.EnemyID);
+                    table.ForeignKey(
+                        name: "FK_Enemies_Users_owneruserID",
+                        column: x => x.owneruserID,
+                        principalTable: "Users",
+                        principalColumn: "userID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    itemID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    rarity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    weight = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    owneruserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.itemID);
+                    table.ForeignKey(
+                        name: "FK_Items_Users_owneruserID",
+                        column: x => x.owneruserID,
+                        principalTable: "Users",
+                        principalColumn: "userID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Races",
                 columns: table => new
                 {
                     raceID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     raceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tableHeader = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     tableData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inheritedRaceID = table.Column<int>(type: "int", nullable: true),
                     owneruserID = table.Column<int>(type: "int", nullable: false)
@@ -104,6 +169,7 @@ namespace Projekt_inz_backend.Migrations
                     featureID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     usedByclassID = table.Column<int>(type: "int", nullable: false),
+                    featureName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     featureDesc = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -148,12 +214,34 @@ namespace Projekt_inz_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "enemyActions",
+                columns: table => new
+                {
+                    actionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    usedByEnemyID = table.Column<int>(type: "int", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    actionType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_enemyActions", x => x.actionID);
+                    table.ForeignKey(
+                        name: "FK_enemyActions_Enemies_usedByEnemyID",
+                        column: x => x.usedByEnemyID,
+                        principalTable: "Enemies",
+                        principalColumn: "EnemyID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "customRaceFeatures",
                 columns: table => new
                 {
                     featureID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     usedByraceID = table.Column<int>(type: "int", nullable: false),
+                    featureName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     featureDesc = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -179,6 +267,7 @@ namespace Projekt_inz_backend.Migrations
                     size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     speed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     raceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    languages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     raceID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -236,6 +325,21 @@ namespace Projekt_inz_backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Enemies_owneruserID",
+                table: "Enemies",
+                column: "owneruserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_enemyActions_usedByEnemyID",
+                table: "enemyActions",
+                column: "usedByEnemyID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_owneruserID",
+                table: "Items",
+                column: "owneruserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_raceFeatures_raceID",
                 table: "raceFeatures",
                 column: "raceID",
@@ -270,10 +374,19 @@ namespace Projekt_inz_backend.Migrations
                 name: "dndClassFeatures");
 
             migrationBuilder.DropTable(
+                name: "enemyActions");
+
+            migrationBuilder.DropTable(
+                name: "Items");
+
+            migrationBuilder.DropTable(
                 name: "raceFeatures");
 
             migrationBuilder.DropTable(
                 name: "spellsForClasses");
+
+            migrationBuilder.DropTable(
+                name: "Enemies");
 
             migrationBuilder.DropTable(
                 name: "Races");

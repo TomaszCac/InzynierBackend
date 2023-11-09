@@ -11,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IEnemyActionEconomyRepository, EnemyActionEconomyRepository>();
-builder.Services.AddScoped<IEnemyFeatureRepository, EnemyFeatureRepository>();
 builder.Services.AddScoped<IEnemyRepository, EnemyRepository>();
 builder.Services.AddScoped<IDndClassRepository, DndClassRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();

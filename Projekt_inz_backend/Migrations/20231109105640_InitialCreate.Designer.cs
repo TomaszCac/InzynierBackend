@@ -12,8 +12,8 @@ using Projekt_inz_backend.Data;
 namespace Projekt_inz_backend.Migrations
 {
     [DbContext(typeof(DndDatabaseContext))]
-    [Migration("20231106201635_LanguagesRaceFeatures")]
-    partial class LanguagesRaceFeatures
+    [Migration("20231109105640_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("featureName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("usedByclassID")
                         .HasColumnType("int");
 
@@ -56,6 +60,10 @@ namespace Projekt_inz_backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
 
                     b.Property<string>("featureDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("featureName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -88,6 +96,10 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("tableData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -173,71 +185,21 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("owneruserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnemyID");
-
-                    b.HasIndex("owneruserID");
-
-                    b.ToTable("Enemies");
-                });
-
-            modelBuilder.Entity("Projekt_inz_backend.Models.EnemyActionEconomy", b =>
-                {
-                    b.Property<int>("actionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("actionID"));
-
-                    b.Property<string>("actionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("usedByEnemyID")
-                        .HasColumnType("int");
-
-                    b.HasKey("actionID");
-
-                    b.HasIndex("usedByEnemyID");
-
-                    b.ToTable("enemyActions");
-                });
-
-            modelBuilder.Entity("Projekt_inz_backend.Models.EnemyFeature", b =>
-                {
-                    b.Property<int>("featureID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
-
                     b.Property<string>("armorClass")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("charisma")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("charisma")
+                        .HasColumnType("int");
 
-                    b.Property<string>("constitution")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("constitution")
+                        .HasColumnType("int");
 
                     b.Property<string>("dangerLvl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("dexterity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("enemyID")
+                    b.Property<int>("dexterity")
                         .HasColumnType("int");
 
                     b.Property<string>("health")
@@ -248,13 +210,15 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("inteligence")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("inteligence")
+                        .HasColumnType("int");
 
                     b.Property<string>("languages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("owneruserID")
+                        .HasColumnType("int");
 
                     b.Property<string>("proficencyBonus")
                         .IsRequired()
@@ -288,24 +252,47 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("strength")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("strength")
+                        .HasColumnType("int");
 
                     b.Property<string>("vulnerabilities")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("wisdom")
+                    b.Property<int>("wisdom")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnemyID");
+
+                    b.HasIndex("owneruserID");
+
+                    b.ToTable("Enemies");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.EnemyActionEconomy", b =>
+                {
+                    b.Property<int>("actionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("actionID"));
+
+                    b.Property<string>("actionType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("featureID");
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("enemyID")
-                        .IsUnique();
+                    b.Property<int>("usedByEnemyID")
+                        .HasColumnType("int");
 
-                    b.ToTable("enemyFeatures");
+                    b.HasKey("actionID");
+
+                    b.HasIndex("usedByEnemyID");
+
+                    b.ToTable("enemyActions");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Item", b =>
@@ -361,6 +348,10 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tableData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -577,17 +568,6 @@ namespace Projekt_inz_backend.Migrations
                     b.Navigation("usedBy");
                 });
 
-            modelBuilder.Entity("Projekt_inz_backend.Models.EnemyFeature", b =>
-                {
-                    b.HasOne("Projekt_inz_backend.Models.Enemy", "usedBy")
-                        .WithOne("feature")
-                        .HasForeignKey("Projekt_inz_backend.Models.EnemyFeature", "enemyID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("usedBy");
-                });
-
             modelBuilder.Entity("Projekt_inz_backend.Models.Item", b =>
                 {
                     b.HasOne("Projekt_inz_backend.Models.User", "owner")
@@ -661,8 +641,6 @@ namespace Projekt_inz_backend.Migrations
             modelBuilder.Entity("Projekt_inz_backend.Models.Enemy", b =>
                 {
                     b.Navigation("actionEcononomy");
-
-                    b.Navigation("feature");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Race", b =>
