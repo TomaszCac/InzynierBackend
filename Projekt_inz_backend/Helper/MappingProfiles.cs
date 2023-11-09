@@ -30,8 +30,6 @@ namespace Projekt_inz_backend.Helper
             CreateMap<SpellForClassDto, SpellForClass>();
             CreateMap<RaceFeature, RaceFeatureDto>();
             CreateMap<RaceFeatureDto, RaceFeature>();
-            CreateMap<DndClassFeature, DndClassFeatureDto>();
-            CreateMap<DndClassFeatureDto, DndClassFeature>();
             CreateMap<CustomRaceFeature, CustomRaceFeatureDto>();
             CreateMap<CustomRaceFeatureDto, CustomRaceFeature>();
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();

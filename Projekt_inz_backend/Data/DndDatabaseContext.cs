@@ -16,7 +16,6 @@ namespace Projekt_inz_backend.Data
         public DbSet<DndClass> dndClasses { get; set; }
         public DbSet<CustomRaceFeature> customRaceFeatures { get; set; }
         public DbSet<CustomDndClassFeature> customDndClassFeatures { get; set; }
-        public DbSet<DndClassFeature> dndClassFeatures { get; set; }
         public DbSet<RaceFeature> raceFeatures { get; set; }
         public DbSet<SpellForClass> spellsForClasses { get; set; }
         public DbSet<Spell> Spells { get; set; }

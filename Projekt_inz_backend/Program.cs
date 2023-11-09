@@ -17,7 +17,6 @@ builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 builder.Services.AddScoped<ISpellRepository, SpellRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<ICustomDndClassFeatureRepository, CustomDndClassFeatureRepository>();
-builder.Services.AddScoped<IDndClassFeatureRepository, DndClassFeatureRepository>();
 builder.Services.AddScoped<IRaceFeatureRepository, RaceFeatureRepository>();
 builder.Services.AddScoped<ICustomRaceFeatureRepository, CustomRaceFeatureRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

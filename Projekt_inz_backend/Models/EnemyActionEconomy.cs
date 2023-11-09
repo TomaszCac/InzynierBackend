@@ -7,7 +7,8 @@ namespace Projekt_inz_backend.Models
         [Key]
         public int actionID { get; set; }
         public Enemy usedBy { get; set; }
-        public string description {  get; set; }
+        public string actionName { get; set; }
+        public string actionDesc {  get; set; }
         public string actionType { get; set; }
 
     }
