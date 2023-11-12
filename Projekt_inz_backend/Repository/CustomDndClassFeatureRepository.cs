@@ -37,6 +37,19 @@ namespace Projekt_inz_backend.Repository
             return _context.customDndClassFeatures.OrderBy(b => b.featureID).ToList();
         }
 
+        public int GetOwnerIdByFeatureId(int featureId)
+        {
+            return _context.customDndClassFeatures.Where(b => b.featureID == featureId).Select(b => b.usedBy.owner.userID).FirstOrDefault();
+        }
+        public int GetOwnerIdByClassId(int classId)
+        {
+            return _context.dndClasses.Where(b => b.classID == classId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

@@ -22,9 +22,11 @@ namespace Projekt_inz_backend.Repository
 
         public string CreateToken(UserDto user)
         {
+            User userEntity = _context.Users.Where(b => b.username == user.username).FirstOrDefault();
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.username)
+                new Claim(ClaimTypes.Name, userEntity.username),
+                new Claim(ClaimTypes.Role, userEntity.role)
             };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -41,6 +43,24 @@ namespace Projekt_inz_backend.Repository
             _context.Add(user);
             return Save();
         }
+
+        public bool DeleteUser(int id)
+        {
+            User userEntity = _context.Users.Where(b => b.userID == id).FirstOrDefault();
+            _context.Remove(userEntity);
+            return Save();
+        }
+
+        public User GetUserById(int id)
+        {
+            return _context.Users.Where(b => b.userID == id).FirstOrDefault();
+        }
+
+        public User GetUserByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).FirstOrDefault();
+        }
+        
 
         public ICollection<User> GetUsers()
         {

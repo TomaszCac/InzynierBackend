@@ -28,7 +28,7 @@ namespace Projekt_inz_backend.Helper
             CreateMap<CustomRaceFeatureDto, CustomRaceFeature>();
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();
             CreateMap<CustomDndClassFeatureDto, CustomDndClassFeature>();
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>().ConvertUsing(new UserConverter());
             CreateMap<UserDto, User>().ConvertUsing(new UserDtoConverter());
         }
         public class UserDtoConverter : ITypeConverter<UserDto, User>
@@ -43,6 +43,19 @@ namespace Projekt_inz_backend.Helper
                 }
                 user.username = source.username;
                 user.email = source.email;
+                user.role = "user";
+                return user;
+            }
+        }
+        public class UserConverter : ITypeConverter<User, UserDto>
+        {
+            public UserDto Convert(User source, UserDto destination, ResolutionContext context)
+            {
+                UserDto user = new UserDto();
+                user.username = source.username;
+                user.email = source.email;
+                user.userID = source.userID;
+                user.password = null;
                 return user;
             }
         }

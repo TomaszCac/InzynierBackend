@@ -8,7 +8,7 @@ namespace Projekt_inz_backend.Repository
     {
         private readonly DndDatabaseContext _context;
 
-        public CustomRaceFeatureRepository(DndDatabaseContext context)
+        public CustomRaceFeatureRepository(DndDatabaseContext context )
         {
             _context = context;
         }
@@ -37,7 +37,18 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.customRaceFeatures.OrderBy(b => b.featureID).ToList();
         }
-
+        public int GetOwnerIdByFeatureId(int featureId)
+        {
+            return _context.customRaceFeatures.Where(b => b.featureID == featureId).Select(b => b.usedBy.owner.userID).FirstOrDefault();
+        }
+        public int GetOwnerIdByRaceId(int raceId)
+        {
+            return _context.Races.Where(b => b.raceID == raceId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
         public bool Save()
         {
             var saved = _context.SaveChanges();

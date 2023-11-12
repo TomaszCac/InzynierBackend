@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VHY7i0fl97Tz6i463cRU8wUJ4AGPT4WgXRjDMMlmPsjI1JFoTuvQf7SrcNkmTo/RUMDbK/Ems8OaXjJ2MTuiGg==",
+  "dgSpecHash": "+UlGfYvEPPXDlnCtKT7e+w8kADYJhJVo6i2z74FFjY5DzKYAq66TRNR71KtvQp3cbh9KG1BqlYDIP0Bf+Q2E9g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Piotoms\\source\\repos\\Nowy folder\\InzynierBackend\\Projekt_inz_backend\\Projekt_inz_backend.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\Piotoms\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Piotoms\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.24\\microsoft.aspnetcore.authentication.jwtbearer.6.0.24.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.24\\microsoft.aspnetcore.jsonpatch.6.0.24.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.24\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.24.nupkg.sha512",
     "C:\\Users\\Piotoms\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

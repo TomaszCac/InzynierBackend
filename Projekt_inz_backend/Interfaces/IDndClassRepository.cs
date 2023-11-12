@@ -12,8 +12,10 @@ namespace Projekt_inz_backend.Interfaces
         bool UpdateDndClass(DndClass dndClass);
         bool Save();
         ICollection<Spell> GetClassSpells(int id);
-        
-        
-        
+        public int GetOwnerId(int classId);
+        public int GetUserIdByName(string username);
+
+
+
     }
 }

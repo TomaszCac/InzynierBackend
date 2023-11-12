@@ -59,6 +59,14 @@ namespace Projekt_inz_backend.Repository
             _context.Update(spell);
             return Save();
         }
+        public int GetOwnerId(int spellId)
+        {
+            return _context.Spells.Where(b => b.spellID == spellId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
 
         public bool DeleteSpell(Spell spell)
         {

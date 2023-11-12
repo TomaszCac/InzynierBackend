@@ -41,7 +41,14 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.Races.OrderBy(b => b.raceID).ToList();
         }
-
+        public int GetOwnerId(int raceId)
+        {
+            return _context.Races.Where(b => b.raceID == raceId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
         public bool Save()
         {
             var saved = _context.SaveChanges();

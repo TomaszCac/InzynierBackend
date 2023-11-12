@@ -47,6 +47,14 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.dndClasses.OrderBy(p => p.classID).ToList();
         }
+        public int GetOwnerId(int classId)
+        {
+            return _context.dndClasses.Where(b => b.classID == classId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
 
         public bool Save()
         {

@@ -10,6 +10,7 @@ namespace Projekt_inz_backend.Models
         public string username {  get; set; }
         public byte[] passwordHash { get; set; }
         public byte[] passwordSalt { get; set; }
+        public string role { get; set; }
         public ICollection<Spell> spells { get; set; }
         public ICollection<DndClass> dndClasses { get; set; }
         public ICollection<Race> races { get; set; }

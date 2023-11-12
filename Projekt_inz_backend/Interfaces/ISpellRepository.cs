@@ -14,5 +14,7 @@ namespace Projekt_inz_backend.Interfaces
         bool UpdateSpell(Spell spell);
         bool DeleteSpell(Spell spell);
         bool Save();
+        public int GetOwnerId(int spellId);
+        public int GetUserIdByName(string username);
     }
 }
