@@ -2,8 +2,8 @@
 {
     public class DndSubclassDto
     {
-        public int? subclassID { get; set; }
+        public int? subclassId { get; set; }
         public string subclassName { get; set; }
-        public string SubclassDesc { get; set; }
+        public string subclassDesc { get; set; }
     }
 }

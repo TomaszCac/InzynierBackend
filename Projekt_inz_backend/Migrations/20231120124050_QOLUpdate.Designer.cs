@@ -12,8 +12,8 @@ using Projekt_inz_backend.Data;
 namespace Projekt_inz_backend.Migrations
 {
     [DbContext(typeof(DndDatabaseContext))]
-    [Migration("20231109201114_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231120124050_QOLUpdate")]
+    partial class QOLUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,12 +41,12 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByclassID")
+                    b.Property<int>("usedByclassId")
                         .HasColumnType("int");
 
                     b.HasKey("featureId");
 
-                    b.HasIndex("usedByclassID");
+                    b.HasIndex("usedByclassId");
 
                     b.ToTable("customDndClassFeatures");
                 });
@@ -67,12 +67,12 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedBysubclassID")
+                    b.Property<int>("usedBysubclassId")
                         .HasColumnType("int");
 
                     b.HasKey("featureId");
 
-                    b.HasIndex("usedBysubclassID");
+                    b.HasIndex("usedBysubclassId");
 
                     b.ToTable("customDndSubclassFeatures");
                 });
@@ -93,12 +93,12 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByraceID")
+                    b.Property<int>("usedByraceId")
                         .HasColumnType("int");
 
                     b.HasKey("featureId");
 
-                    b.HasIndex("usedByraceID");
+                    b.HasIndex("usedByraceId");
 
                     b.ToTable("customRaceFeatures");
                 });
@@ -119,10 +119,6 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("className")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("classEquipment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -139,29 +135,19 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("inheritedClassID")
-                        .HasColumnType("int");
-
                     b.Property<string>("classMulticlassReq")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("owneruserID")
-                        .HasColumnType("int");
+                    b.Property<string>("className")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("classSavingThrows")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("classSkills")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("spellTableData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("spellTableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -181,6 +167,20 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("inheritedClassID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("owneruserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("spellTableData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("spellTableHeader")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("classId");
 
                     b.HasIndex("owneruserID");
@@ -196,15 +196,15 @@ namespace Projekt_inz_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("subclassId"));
 
-                    b.Property<string>("subclassDesc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("inheritedClassclassID")
+                    b.Property<int>("inheritedClassclassId")
                         .HasColumnType("int");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
+
+                    b.Property<string>("subclassDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("subclassName")
                         .IsRequired()
@@ -212,7 +212,7 @@ namespace Projekt_inz_backend.Migrations
 
                     b.HasKey("subclassId");
 
-                    b.HasIndex("inheritedClassclassID");
+                    b.HasIndex("inheritedClassclassId");
 
                     b.HasIndex("owneruserID");
 
@@ -226,10 +226,6 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("enemyId"));
-
-                    b.Property<string>("enemyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("enemyArmorClass")
                         .IsRequired()
@@ -263,14 +259,15 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("owneruserID")
-                        .HasColumnType("int");
+                    b.Property<string>("enemyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("enemyProficencyBonus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("enemyace")
+                    b.Property<string>("enemyRace")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -278,7 +275,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("classSavingThrows")
+                    b.Property<string>("enemySavingThrows")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -290,7 +287,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("classSkills")
+                    b.Property<string>("enemySkills")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -306,6 +303,9 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("enemyWisdom")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
                     b.HasKey("enemyId");
@@ -335,12 +335,12 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByEnemyID")
+                    b.Property<int>("usedByenemyId")
                         .HasColumnType("int");
 
                     b.HasKey("actionId");
 
-                    b.HasIndex("usedByEnemyID");
+                    b.HasIndex("usedByenemyId");
 
                     b.ToTable("enemyActions");
                 });
@@ -361,9 +361,6 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("owneruserID")
-                        .HasColumnType("int");
-
                     b.Property<string>("itemRarity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -371,6 +368,9 @@ namespace Projekt_inz_backend.Migrations
                     b.Property<string>("itemWeight")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("owneruserID")
+                        .HasColumnType("int");
 
                     b.HasKey("itemId");
 
@@ -387,6 +387,12 @@ namespace Projekt_inz_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("raceId"));
 
+                    b.Property<int?>("inheritedRaceID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("owneruserID")
+                        .HasColumnType("int");
+
                     b.Property<string>("raceAbilityScoreIncrease")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -399,17 +405,11 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("inheritedRaceID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("enemyLanguages")
+                    b.Property<string>("raceDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("owneruserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("raceDescription")
+                    b.Property<string>("raceLanguages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -417,19 +417,19 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("enemySize")
+                    b.Property<string>("raceSize")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("enemySpeed")
+                    b.Property<string>("raceSpeed")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("classTableData")
+                    b.Property<string>("raceTableData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("classTableHeader")
+                    b.Property<string>("raceTableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -537,7 +537,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndClass", "usedBy")
                         .WithMany("customFeatures")
-                        .HasForeignKey("usedByclassID")
+                        .HasForeignKey("usedByclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -548,7 +548,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndSubclass", "usedBy")
                         .WithMany()
-                        .HasForeignKey("usedBysubclassID")
+                        .HasForeignKey("usedBysubclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -559,7 +559,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.Race", "usedBy")
                         .WithMany("customFeatures")
-                        .HasForeignKey("usedByraceID")
+                        .HasForeignKey("usedByraceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -579,7 +579,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndClass", "inheritedClass")
                         .WithMany("dndSubclasses")
-                        .HasForeignKey("inheritedClassclassID")
+                        .HasForeignKey("inheritedClassclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -605,7 +605,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.Enemy", "usedBy")
                         .WithMany("actionEcononomy")
-                        .HasForeignKey("usedByEnemyID")
+                        .HasForeignKey("usedByenemyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -29,10 +29,10 @@ namespace Projekt_inz_backend.Data
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SpellForClass>(eb => { eb.HasKey(b => new { b.spellID, b.classID }); }
+            modelBuilder.Entity<SpellForClass>(eb => { eb.HasKey(b => new { b.spellId, b.classId }); }
             );
-            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.spellUsed).WithMany(b => b.usedBy).HasForeignKey(b => b.spellID).OnDelete(DeleteBehavior.ClientSetNull));
-            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.usingClass).WithMany(b => b.usesSpells).HasForeignKey(b => b.classID).OnDelete(DeleteBehavior.ClientSetNull));
+            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.spellUsed).WithMany(b => b.usedBy).HasForeignKey(b => b.spellId).OnDelete(DeleteBehavior.ClientSetNull));
+            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.usingClass).WithMany(b => b.usesSpells).HasForeignKey(b => b.classId).OnDelete(DeleteBehavior.ClientSetNull));
             
         }
     }

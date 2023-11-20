@@ -5,7 +5,7 @@ namespace Projekt_inz_backend.Models
     public class EnemyActionEconomy
     {
         [Key]
-        public int actionID { get; set; }
+        public int actionId { get; set; }
         public Enemy usedBy { get; set; }
         public string actionName { get; set; }
         public string actionDesc {  get; set; }

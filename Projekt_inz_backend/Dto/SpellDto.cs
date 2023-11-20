@@ -2,7 +2,7 @@
 {
     public class SpellDto
     {
-        public int? spellID { get; set; }
+        public int? spellId { get; set; }
         public string spellName { get; set; }
         public string spellSchool { get; set; }
         public string spellCasting { get; set; }

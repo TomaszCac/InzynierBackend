@@ -45,7 +45,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateEnemy(int ownerid, [FromBody] EnemyDto enemy)
         {
-            enemy.EnemyID = null;
+            enemy.enemyId = null;
             if (enemy == null)
             {
                 return BadRequest(ModelState);

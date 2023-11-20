@@ -5,9 +5,9 @@ namespace Projekt_inz_backend.Models
 {
     public class SpellForClass
     {
-        public int spellID {  get; set; }
+        public int spellId {  get; set; }
         public Spell spellUsed {  get; set; }
-        public int classID { get; set; }
+        public int classId { get; set; }
         public DndClass usingClass { get; set; }
     }
 }

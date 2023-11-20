@@ -4,7 +4,7 @@ namespace Projekt_inz_backend.Dto
 {
     public class EnemyActionEconomyDto
     {
-        public int? actionID { get; set; }
+        public int? actionId { get; set; }
         public string actionName { get; set; }
         public string actionDesc { get; set; }
 

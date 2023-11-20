@@ -6,7 +6,7 @@ namespace Projekt_inz_backend.Models
     public class CustomDndClassFeature
     {
         [Key]
-        public int featureID {  get; set; } 
+        public int featureId {  get; set; } 
         public DndClass usedBy { get; set; }
         public string featureName { get; set; }
         public string featureDesc { get; set; }

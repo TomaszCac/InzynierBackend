@@ -15,7 +15,7 @@ namespace Projekt_inz_backend.Repository
 
         public bool CreateCustomRaceFeature(int raceId, CustomRaceFeature customRaceFeature)
         {
-            var customRaceFeatureRace = _context.Races.Where(b => b.raceID == raceId).FirstOrDefault();
+            var customRaceFeatureRace = _context.Races.Where(b => b.raceId == raceId).FirstOrDefault();
             customRaceFeature.usedBy = customRaceFeatureRace;
             _context.Add(customRaceFeature);
             return Save();
@@ -29,13 +29,13 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<CustomRaceFeature> GetCustomRaceFeature(int raceId)
         {
-            var customs = _context.Races.Where(b => b.raceID == raceId).Select(b => b.customFeatures).SingleOrDefault();
+            var customs = _context.Races.Where(b => b.raceId == raceId).Select(b => b.customFeatures).SingleOrDefault();
             return customs;
         }
 
         public ICollection<CustomRaceFeature> GetCustomRaceFeatures()
         {
-            return _context.customRaceFeatures.OrderBy(b => b.featureID).ToList();
+            return _context.customRaceFeatures.OrderBy(b => b.featureId).ToList();
         }
 
         public bool Save()

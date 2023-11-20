@@ -5,11 +5,11 @@ namespace Projekt_inz_backend.Models
     public class Item
     {
         [Key]
-        public int itemID { get; set; }
-        public string name { get; set; }
-        public string rarity { get; set; }
-        public string description { get; set; }
-        public string weight {  get; set; }
+        public int itemId { get; set; }
+        public string itemName { get; set; }
+        public string itemRarity { get; set; }
+        public string itemDescription { get; set; }
+        public string itemWeight {  get; set; }
         public User? owner { get; set; }
     }
 }

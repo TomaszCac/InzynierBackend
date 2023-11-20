@@ -24,11 +24,11 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.CustomDndClassFeature", b =>
                 {
-                    b.Property<int>("featureID")
+                    b.Property<int>("featureId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureId"));
 
                     b.Property<string>("featureDesc")
                         .IsRequired()
@@ -38,23 +38,23 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByclassID")
+                    b.Property<int>("usedByclassId")
                         .HasColumnType("int");
 
-                    b.HasKey("featureID");
+                    b.HasKey("featureId");
 
-                    b.HasIndex("usedByclassID");
+                    b.HasIndex("usedByclassId");
 
                     b.ToTable("customDndClassFeatures");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.CustomDndSubclassFeature", b =>
                 {
-                    b.Property<int>("featureID")
+                    b.Property<int>("featureId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureId"));
 
                     b.Property<string>("featureDesc")
                         .IsRequired()
@@ -64,23 +64,23 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedBysubclassID")
+                    b.Property<int>("usedBysubclassId")
                         .HasColumnType("int");
 
-                    b.HasKey("featureID");
+                    b.HasKey("featureId");
 
-                    b.HasIndex("usedBysubclassID");
+                    b.HasIndex("usedBysubclassId");
 
                     b.ToTable("customDndSubclassFeatures");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.CustomRaceFeature", b =>
                 {
-                    b.Property<int>("featureID")
+                    b.Property<int>("featureId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("featureId"));
 
                     b.Property<string>("featureDesc")
                         .IsRequired()
@@ -90,25 +90,25 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByraceID")
+                    b.Property<int>("usedByraceId")
                         .HasColumnType("int");
 
-                    b.HasKey("featureID");
+                    b.HasKey("featureId");
 
-                    b.HasIndex("usedByraceID");
+                    b.HasIndex("usedByraceId");
 
                     b.ToTable("customRaceFeatures");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.DndClass", b =>
                 {
-                    b.Property<int>("classID")
+                    b.Property<int>("classId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("classID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("classId"));
 
-                    b.Property<string>("armorProficency")
+                    b.Property<string>("classArmorProficency")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -116,43 +116,59 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("classEquipment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classHitDice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classHitPointsAtFirst")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classHitPointsAtHigh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classMulticlassReq")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("className")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("equipment")
+                    b.Property<string>("classSavingThrows")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("hitDice")
+                    b.Property<string>("classSkills")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("hitPointsAtFirst")
+                    b.Property<string>("classTableData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("hitPointsAtHigh")
+                    b.Property<string>("classTableHeader")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classToolsProficency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("classWeaponProficency")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("inheritedClassID")
                         .HasColumnType("int");
 
-                    b.Property<string>("multiclassReq")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
-
-                    b.Property<string>("savingThrows")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("skills")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("spellTableData")
                         .IsRequired()
@@ -162,23 +178,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("tableData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("tableHeader")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("toolsProficency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("weaponProficency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("classID");
+                    b.HasKey("classId");
 
                     b.HasIndex("owneruserID");
 
@@ -187,29 +187,29 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.DndSubclass", b =>
                 {
-                    b.Property<int>("subclassID")
+                    b.Property<int>("subclassId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("subclassID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("subclassId"));
 
-                    b.Property<string>("SubclassDesc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("inheritedClassclassID")
+                    b.Property<int>("inheritedClassclassId")
                         .HasColumnType("int");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
+                    b.Property<string>("subclassDesc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("subclassName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("subclassID");
+                    b.HasKey("subclassId");
 
-                    b.HasIndex("inheritedClassclassID");
+                    b.HasIndex("inheritedClassclassId");
 
                     b.HasIndex("owneruserID");
 
@@ -218,94 +218,94 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Enemy", b =>
                 {
-                    b.Property<int>("EnemyID")
+                    b.Property<int>("enemyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnemyID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("enemyId"));
 
-                    b.Property<string>("EnemyName")
+                    b.Property<string>("enemyArmorClass")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("armorClass")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("charisma")
+                    b.Property<int>("enemyCharisma")
                         .HasColumnType("int");
 
-                    b.Property<int>("constitution")
+                    b.Property<int>("enemyConstitution")
                         .HasColumnType("int");
 
-                    b.Property<string>("dangerLvl")
+                    b.Property<string>("enemyDangerLvl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("dexterity")
+                    b.Property<int>("enemyDexterity")
                         .HasColumnType("int");
 
-                    b.Property<string>("health")
+                    b.Property<string>("enemyHealth")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("immunes")
+                    b.Property<string>("enemyImmunes")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("inteligence")
+                    b.Property<int>("enemyInteligence")
                         .HasColumnType("int");
 
-                    b.Property<string>("languages")
+                    b.Property<string>("enemyLanguages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemyProficencyBonus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemyRace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemyResistances")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemySavingThrows")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemySenses")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemySize")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemySkills")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("enemySpeed")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("enemyStrength")
+                        .HasColumnType("int");
+
+                    b.Property<string>("enemyVulnerabilities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("enemyWisdom")
+                        .HasColumnType("int");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
-                    b.Property<string>("proficencyBonus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("race")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("resistances")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("savingThrows")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("senses")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("skills")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("speed")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("strength")
-                        .HasColumnType("int");
-
-                    b.Property<string>("vulnerabilities")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("wisdom")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnemyID");
+                    b.HasKey("enemyId");
 
                     b.HasIndex("owneruserID");
 
@@ -314,11 +314,11 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.EnemyActionEconomy", b =>
                 {
-                    b.Property<int>("actionID")
+                    b.Property<int>("actionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("actionID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("actionId"));
 
                     b.Property<string>("actionDesc")
                         .IsRequired()
@@ -332,44 +332,44 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("usedByEnemyID")
+                    b.Property<int>("usedByenemyId")
                         .HasColumnType("int");
 
-                    b.HasKey("actionID");
+                    b.HasKey("actionId");
 
-                    b.HasIndex("usedByEnemyID");
+                    b.HasIndex("usedByenemyId");
 
                     b.ToTable("enemyActions");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Item", b =>
                 {
-                    b.Property<int>("itemID")
+                    b.Property<int>("itemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("itemID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("itemId"));
 
-                    b.Property<string>("description")
+                    b.Property<string>("itemDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("itemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("itemRarity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("itemWeight")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
-                    b.Property<string>("rarity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("weight")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("itemID");
+                    b.HasKey("itemId");
 
                     b.HasIndex("owneruserID");
 
@@ -378,35 +378,35 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Race", b =>
                 {
-                    b.Property<int>("raceID")
+                    b.Property<int>("raceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("raceID"));
-
-                    b.Property<string>("abilityScoreIncrease")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("age")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("alignment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("raceId"));
 
                     b.Property<int?>("inheritedRaceID")
                         .HasColumnType("int");
 
-                    b.Property<string>("languages")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
+                    b.Property<string>("raceAbilityScoreIncrease")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("raceAge")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("raceAlignment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("raceDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("raceLanguages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -414,23 +414,23 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("size")
+                    b.Property<string>("raceSize")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("speed")
+                    b.Property<string>("raceSpeed")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("tableData")
+                    b.Property<string>("raceTableData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("tableHeader")
+                    b.Property<string>("raceTableHeader")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("raceID");
+                    b.HasKey("raceId");
 
                     b.HasIndex("owneruserID");
 
@@ -439,11 +439,11 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Spell", b =>
                 {
-                    b.Property<int>("spellID")
+                    b.Property<int>("spellId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("spellID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("spellId"));
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
@@ -483,7 +483,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("spellID");
+                    b.HasKey("spellId");
 
                     b.HasIndex("owneruserID");
 
@@ -492,15 +492,15 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.SpellForClass", b =>
                 {
-                    b.Property<int>("spellID")
+                    b.Property<int>("spellId")
                         .HasColumnType("int");
 
-                    b.Property<int>("classID")
+                    b.Property<int>("classId")
                         .HasColumnType("int");
 
-                    b.HasKey("spellID", "classID");
+                    b.HasKey("spellId", "classId");
 
-                    b.HasIndex("classID");
+                    b.HasIndex("classId");
 
                     b.ToTable("spellsForClasses");
                 });
@@ -534,7 +534,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndClass", "usedBy")
                         .WithMany("customFeatures")
-                        .HasForeignKey("usedByclassID")
+                        .HasForeignKey("usedByclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -545,7 +545,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndSubclass", "usedBy")
                         .WithMany()
-                        .HasForeignKey("usedBysubclassID")
+                        .HasForeignKey("usedBysubclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -556,7 +556,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.Race", "usedBy")
                         .WithMany("customFeatures")
-                        .HasForeignKey("usedByraceID")
+                        .HasForeignKey("usedByraceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -576,7 +576,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndClass", "inheritedClass")
                         .WithMany("dndSubclasses")
-                        .HasForeignKey("inheritedClassclassID")
+                        .HasForeignKey("inheritedClassclassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -602,7 +602,7 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.Enemy", "usedBy")
                         .WithMany("actionEcononomy")
-                        .HasForeignKey("usedByEnemyID")
+                        .HasForeignKey("usedByenemyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -640,12 +640,12 @@ namespace Projekt_inz_backend.Migrations
                 {
                     b.HasOne("Projekt_inz_backend.Models.DndClass", "usingClass")
                         .WithMany("usesSpells")
-                        .HasForeignKey("classID")
+                        .HasForeignKey("classId")
                         .IsRequired();
 
                     b.HasOne("Projekt_inz_backend.Models.Spell", "spellUsed")
                         .WithMany("usedBy")
-                        .HasForeignKey("spellID")
+                        .HasForeignKey("spellId")
                         .IsRequired();
 
                     b.Navigation("spellUsed");

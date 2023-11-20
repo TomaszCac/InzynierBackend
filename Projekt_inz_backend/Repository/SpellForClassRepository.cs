@@ -16,10 +16,10 @@ namespace Projekt_inz_backend.Repository
         public bool CreateSpellForClass(int spellId, int classId, bool update=false)
         {
             SpellForClass SpellForClassEntity = new SpellForClass {
-                classID = classId,
-                spellID = spellId,
-                spellUsed = _context.Spells.Where(b => b.spellID == spellId).FirstOrDefault(),
-                usingClass = _context.dndClasses.Where(b => b.classID == classId).FirstOrDefault()
+                classId = classId,
+                spellId = spellId,
+                spellUsed = _context.Spells.Where(b => b.spellId == spellId).FirstOrDefault(),
+                usingClass = _context.dndClasses.Where(b => b.classId == classId).FirstOrDefault()
                 
             };
             _context.Add(SpellForClassEntity);
@@ -45,12 +45,12 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<SpellForClass> GetSpellsForClassByClass(int classId)
         {
-            return _context.spellsForClasses.Where(b => b.classID == classId).ToList();
+            return _context.spellsForClasses.Where(b => b.classId == classId).ToList();
         }
 
         public ICollection<SpellForClass> GetSpellsForClassBySpell(int spellId)
         {
-            return _context.spellsForClasses.Where(b => b.spellID == spellId).ToList();
+            return _context.spellsForClasses.Where(b => b.spellId == spellId).ToList();
         }
 
         public ICollection<SpellForClass> GetSpellsForClasses()
@@ -67,10 +67,10 @@ namespace Projekt_inz_backend.Repository
         {
             SpellForClass oldSpellForClassEntity = new SpellForClass
             {
-                classID = classOld,
-                spellID = spellOld,
-                spellUsed = _context.Spells.Where(b => b.spellID == spellOld).FirstOrDefault(),
-                usingClass = _context.dndClasses.Where(b => b.classID == classOld).FirstOrDefault()
+                classId = classOld,
+                spellId = spellOld,
+                spellUsed = _context.Spells.Where(b => b.spellId == spellOld).FirstOrDefault(),
+                usingClass = _context.dndClasses.Where(b => b.classId == classOld).FirstOrDefault()
 
             };
             DeleteSpellForClass(oldSpellForClassEntity, true);

@@ -39,7 +39,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateCustomSubclassFeature([FromQuery]int subclassid, [FromBody] CustomDndSubclassFeatureDto feature)
         {
-            feature.featureID = null;
+            feature.featureId = null;
             if (feature == null)
             {
                 return BadRequest(ModelState);

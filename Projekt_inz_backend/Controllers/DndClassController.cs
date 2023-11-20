@@ -36,7 +36,7 @@ namespace Projekt_inz_backend.Controllers
         {
             return Ok(_mapper.Map<DndClassDto>(_dndclassrepos.getDndClass(id)));
         }
-        [HttpGet("name/{name}")]
+        [HttpGet("itemName/{itemName}")]
         public IActionResult GetByName(string name)
         {
             return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(name)));
@@ -51,7 +51,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateDndClass(int ownerid, [FromBody] DndClassDto dndClass)
         {
-            dndClass.classID = null;
+            dndClass.classId = null;
             if (dndClass == null)
             {
                 return BadRequest(ModelState);

@@ -14,7 +14,7 @@ namespace Projekt_inz_backend.Repository
         }
         public bool CreateCustomSubclassFeature(int subclassid, CustomDndSubclassFeature feature)
         {
-            DndSubclass dndSubclassEntity = _context.dndSubclasses.Where(b => b.subclassID == subclassid).FirstOrDefault();
+            DndSubclass dndSubclassEntity = _context.dndSubclasses.Where(b => b.subclassId == subclassid).FirstOrDefault();
             feature.usedBy = dndSubclassEntity;
             _context.Add(feature);
             return Save();
@@ -28,12 +28,12 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<CustomDndSubclassFeature> GetCustomDndsubclassFeaturesFromSubclass(int subclassid)
         {
-            return _context.customDndSubclassFeatures.Where(b => b.usedBy.subclassID == subclassid).ToList();
+            return _context.customDndSubclassFeatures.Where(b => b.usedBy.subclassId == subclassid).ToList();
         }
 
         public CustomDndSubclassFeature GetCustomSubclassFeature(int featureid)
         {
-            return _context.customDndSubclassFeatures.Where(b => b.featureID == featureid).FirstOrDefault();
+            return _context.customDndSubclassFeatures.Where(b => b.featureId == featureid).FirstOrDefault();
         }
 
         public ICollection<CustomDndSubclassFeature> GetCustomSubclassFeatures()

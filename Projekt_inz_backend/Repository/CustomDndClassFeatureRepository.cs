@@ -15,7 +15,7 @@ namespace Projekt_inz_backend.Repository
 
         public bool CreateCustomDndClassFeature(int classId, CustomDndClassFeature customFeature)
         {
-            var classEntity = _context.dndClasses.Where(b => b.classID == classId).FirstOrDefault();
+            var classEntity = _context.dndClasses.Where(b => b.classId == classId).FirstOrDefault();
             customFeature.usedBy = classEntity;
             _context.Add(customFeature);
             return Save();
@@ -29,12 +29,12 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<CustomDndClassFeature> GetCustomDndClassFeature(int classId)
         {
-            return _context.customDndClassFeatures.Where(b => b.usedBy.classID == classId).ToList();
+            return _context.customDndClassFeatures.Where(b => b.usedBy.classId == classId).ToList();
         }
 
         public ICollection<CustomDndClassFeature> GetCustomDndClassFeatures()
         {
-            return _context.customDndClassFeatures.OrderBy(b => b.featureID).ToList();
+            return _context.customDndClassFeatures.OrderBy(b => b.featureId).ToList();
         }
 
         public bool Save()

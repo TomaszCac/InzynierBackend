@@ -6,7 +6,7 @@ namespace Projekt_inz_backend.Models
     public class Spell
     {
         [Key]
-        public int spellID { get; set; }
+        public int spellId { get; set; }
         public string spellName { get; set; }
         public string spellSchool { get; set; }
         public string spellCasting { get; set; }

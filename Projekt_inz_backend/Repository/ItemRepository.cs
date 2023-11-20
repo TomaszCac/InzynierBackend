@@ -29,7 +29,7 @@ namespace Projekt_inz_backend.Repository
 
         public Item GetItem(int id)
         {
-            return _context.Items.Where(b => b.itemID == id).FirstOrDefault();
+            return _context.Items.Where(b => b.itemId == id).FirstOrDefault();
         }
 
         public ICollection<Item> GetItems()

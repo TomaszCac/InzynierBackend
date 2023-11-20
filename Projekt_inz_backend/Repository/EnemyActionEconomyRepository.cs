@@ -16,7 +16,7 @@ namespace Projekt_inz_backend.Repository
 
         public bool CreateEnemyActionEconomy(int enemyid, EnemyActionEconomy action)
         {
-            var enemyEntity = _context.Enemies.Where(b => b.EnemyID == enemyid).FirstOrDefault();
+            var enemyEntity = _context.Enemies.Where(b => b.enemyId == enemyid).FirstOrDefault();
             action.usedBy = enemyEntity;
             _context.Add(action);
             return Save();
@@ -35,12 +35,12 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<EnemyActionEconomy> GetEnemyActionEconomyByEnemy(int enemyid)
         {
-            return _context.enemyActions.Where(b => b.usedBy.EnemyID == enemyid).ToList();
+            return _context.enemyActions.Where(b => b.usedBy.enemyId == enemyid).ToList();
         }
 
         public EnemyActionEconomy GetEnemyActionEconomyById(int id)
         {
-            return _context.enemyActions.Where(b => b.actionID == id).FirstOrDefault();
+            return _context.enemyActions.Where(b => b.actionId == id).FirstOrDefault();
         }
 
         public bool Save()

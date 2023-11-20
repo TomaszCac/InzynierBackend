@@ -38,7 +38,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateCustomRaceFeature(int raceid,[FromBody] CustomRaceFeatureDto customRaceFeature)
         {
-            customRaceFeature.featureID = null;
+            customRaceFeature.featureId = null;
             if (customRaceFeature == null)
             {
                 return BadRequest(ModelState);

@@ -15,7 +15,7 @@ namespace Projekt_inz_backend.Repository
         public bool CreateSubclass(int ownerid, int classid, DndSubclass subclass)
         {
             User ownerEntity = _context.Users.Where(b => b.userID  == ownerid).FirstOrDefault();
-            DndClass dndClassEntity = _context.dndClasses.Where(b => b.classID == classid).FirstOrDefault();
+            DndClass dndClassEntity = _context.dndClasses.Where(b => b.classId == classid).FirstOrDefault();
             subclass.owner = ownerEntity;
             subclass.inheritedClass = dndClassEntity;
             _context.Add(subclass);
@@ -31,7 +31,7 @@ namespace Projekt_inz_backend.Repository
 
         public DndSubclass GetSubclass(int subclassId)
         {
-            return _context.dndSubclasses.Where(b => b.subclassID == subclassId).FirstOrDefault();
+            return _context.dndSubclasses.Where(b => b.subclassId == subclassId).FirstOrDefault();
         }
 
         public ICollection<DndSubclass> GetSubclasses()
@@ -41,7 +41,7 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<DndSubclass> GetSubclassesFromClass(int classid)
         {
-            return _context.dndSubclasses.Where(b => b.inheritedClass.classID == classid).ToList();
+            return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
         }
 
         public bool Save()

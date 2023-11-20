@@ -40,7 +40,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateEnemyActionEconomy(int enemyid,[FromBody] EnemyActionEconomyDto action)
         {
-            action.actionID = null;
+            action.actionId = null;
             if (action == null)
             {
                 return BadRequest(ModelState);

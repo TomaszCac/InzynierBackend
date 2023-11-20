@@ -2,7 +2,7 @@
 {
     public class SpellForClassDto
     {
-        public int spellID { get; set; }
-        public int classID { get; set; }
+        public int spellId { get; set; }
+        public int classId { get; set; }
     }
 }

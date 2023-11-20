@@ -34,7 +34,7 @@ namespace Projekt_inz_backend.Controllers
             return Ok(_mapper.Map<SpellDto>(_spellrepos.GetSpellById(id)));
         }
 
-        [HttpGet("name/{name}")]
+        [HttpGet("itemName/{itemName}")]
         public IActionResult GetSpellByLvl(string name)
         {
             return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByName(name)));
@@ -60,7 +60,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateSpell(int ownerId, SpellDto spell)
         {
-            spell.spellID = null;
+            spell.spellId = null;
             if (spell == null)
             {
                 return BadRequest(ModelState);

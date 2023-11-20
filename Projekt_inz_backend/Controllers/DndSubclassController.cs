@@ -39,7 +39,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateSubclass(int ownerid, int classid, [FromBody] DndSubclassDto subclass)
         {
-            subclass.subclassID = null;
+            subclass.subclassId = null;
             if (subclass == null)
             {
                 return BadRequest(ModelState);

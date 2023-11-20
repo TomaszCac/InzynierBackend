@@ -14,11 +14,11 @@ namespace Projekt_inz_backend.Repository
         }
         public ICollection<Spell> GetSpells()
         {
-            return _context.Spells.OrderBy(c => c.spellID).ToList();
+            return _context.Spells.OrderBy(c => c.spellId).ToList();
         }
         public Spell GetSpellById(int spellID)
         {
-            return _context.Spells.Where(b => b.spellID == spellID).FirstOrDefault();
+            return _context.Spells.Where(b => b.spellId == spellID).FirstOrDefault();
         }
         public ICollection<Spell> GetSpellByName(string spellname)
         {
@@ -31,12 +31,12 @@ namespace Projekt_inz_backend.Repository
 
         public User GetOwner(int id)
         {
-            return _context.Spells.Where(b => b.spellID == id).Select(b => b.owner).FirstOrDefault();
+            return _context.Spells.Where(b => b.spellId == id).Select(b => b.owner).FirstOrDefault();
         }
 
         public ICollection<DndClass> GetClassesUsing(int id)
         {
-            return _context.spellsForClasses.Where(b => b.spellID == id).Select(b => b.usingClass).ToList();
+            return _context.spellsForClasses.Where(b => b.spellId == id).Select(b => b.usingClass).ToList();
         }
 
         public bool CreateSpell(int ownerId, Spell spell)
@@ -62,7 +62,7 @@ namespace Projekt_inz_backend.Repository
 
         public bool DeleteSpell(Spell spell)
         {
-            var spellused = _context.spellsForClasses.Where(b => b.spellID == spell.spellID).ToList();
+            var spellused = _context.spellsForClasses.Where(b => b.spellId == spell.spellId).ToList();
             foreach (var c in spellused)
             {
                 _context.Remove(c);

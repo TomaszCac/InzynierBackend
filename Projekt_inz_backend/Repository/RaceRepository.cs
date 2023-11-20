@@ -29,7 +29,7 @@ namespace Projekt_inz_backend.Repository
 
         public Race GetRace(int id)
         {
-            return _context.Races.Where(b => b.raceID == id).FirstOrDefault();
+            return _context.Races.Where(b => b.raceId == id).FirstOrDefault();
         }
 
         public ICollection<Race> GetRace(string name)
@@ -39,7 +39,7 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<Race> GetRaces()
         {
-            return _context.Races.OrderBy(b => b.raceID).ToList();
+            return _context.Races.OrderBy(b => b.raceId).ToList();
         }
 
         public bool Save()

@@ -39,7 +39,7 @@ namespace Projekt_inz_backend.Repository
 
         public Enemy GetEnemyById(int id)
         {
-            return _context.Enemies.Where(b => b.EnemyID == id).FirstOrDefault();
+            return _context.Enemies.Where(b => b.enemyId == id).FirstOrDefault();
         }
 
         public bool Save()

@@ -29,13 +29,13 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<Spell> GetClassSpells(int id)
         {
-            var spellsUsed = _context.spellsForClasses.Where(b => b.classID == id).Select(b => b.spellUsed).ToList();
+            var spellsUsed = _context.spellsForClasses.Where(b => b.classId == id).Select(b => b.spellUsed).ToList();
             return spellsUsed;
         }
 
         public DndClass getDndClass(int id)
         {
-            return _context.dndClasses.Where(b => b.classID == id).FirstOrDefault();
+            return _context.dndClasses.Where(b => b.classId == id).FirstOrDefault();
         }
 
         public ICollection<DndClass> GetDndClass(string name)
@@ -45,7 +45,7 @@ namespace Projekt_inz_backend.Repository
 
         public ICollection<DndClass> getDndClasses()
         {
-            return _context.dndClasses.OrderBy(p => p.classID).ToList();
+            return _context.dndClasses.OrderBy(p => p.classId).ToList();
         }
 
         public bool Save()

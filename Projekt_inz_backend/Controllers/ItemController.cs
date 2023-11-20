@@ -44,7 +44,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost]
         public IActionResult CreateItem(int ownerid, ItemDto item)
         {
-            item.itemID = null;
+            item.itemId = null;
             if (item == null)
             {
                 return BadRequest(ModelState);

@@ -194,7 +194,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_customDndClassFeatures_dndClasses_usedByclassID",
                         column: x => x.usedByclassID,
                         principalTable: "dndClasses",
-                        principalColumn: "classID",
+                        principalColumn: "classId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -221,7 +221,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_dndSubclasses_dndClasses_inheritedClassclassID",
                         column: x => x.inheritedClassclassID,
                         principalTable: "dndClasses",
-                        principalColumn: "classID",
+                        principalColumn: "classId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -243,7 +243,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_enemyActions_Enemies_usedByEnemyID",
                         column: x => x.usedByEnemyID,
                         principalTable: "Enemies",
-                        principalColumn: "EnemyID",
+                        principalColumn: "enemyId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -264,7 +264,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_customRaceFeatures_Races_usedByraceID",
                         column: x => x.usedByraceID,
                         principalTable: "Races",
-                        principalColumn: "raceID",
+                        principalColumn: "raceId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -282,12 +282,12 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_spellsForClasses_Spells_spellID",
                         column: x => x.spellID,
                         principalTable: "Spells",
-                        principalColumn: "spellID");
+                        principalColumn: "spellId");
                     table.ForeignKey(
                         name: "FK_spellsForClasses_dndClasses_classID",
                         column: x => x.classID,
                         principalTable: "dndClasses",
-                        principalColumn: "classID");
+                        principalColumn: "classId");
                 });
 
             migrationBuilder.CreateTable(
@@ -307,7 +307,7 @@ namespace Projekt_inz_backend.Migrations
                         name: "FK_customDndSubclassFeatures_dndSubclasses_usedBysubclassID",
                         column: x => x.usedBysubclassID,
                         principalTable: "dndSubclasses",
-                        principalColumn: "subclassID",
+                        principalColumn: "subclassId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -369,7 +369,7 @@ namespace Projekt_inz_backend.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_spellsForClasses_classID",
                 table: "spellsForClasses",
-                column: "classID");
+                column: "classId");
         }
 
         /// <inheritdoc />

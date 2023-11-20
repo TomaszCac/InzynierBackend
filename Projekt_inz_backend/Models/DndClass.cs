@@ -7,24 +7,24 @@ namespace Projekt_inz_backend.Models
     public class DndClass
     {
         [Key]
-        public int classID { get; set; }
+        public int classId { get; set; }
         public string className { get; set; }
-        public string tableHeader {  get; set; }
-        public string tableData { get; set; }
+        public string classTableHeader {  get; set; }
+        public string classTableData { get; set; }
         public string spellTableHeader { get; set; }
         public string spellTableData { get; set; }
         public int? inheritedClassID { get; set; }
         public string classDescription { get; set; }
-        public string multiclassReq { get; set; }
-        public string hitDice { get; set; }
-        public string hitPointsAtFirst { get; set; }
-        public string hitPointsAtHigh { get; set; }
-        public string armorProficency { get; set; }
-        public string weaponProficency { get; set; }
-        public string toolsProficency { get; set; }
-        public string savingThrows { get; set; }
-        public string skills { get; set; }
-        public string equipment { get; set; }
+        public string classMulticlassReq { get; set; }
+        public string classHitDice { get; set; }
+        public string classHitPointsAtFirst { get; set; }
+        public string classHitPointsAtHigh { get; set; }
+        public string classArmorProficency { get; set; }
+        public string classWeaponProficency { get; set; }
+        public string classToolsProficency { get; set; }
+        public string classSavingThrows { get; set; }
+        public string classSkills { get; set; }
+        public string classEquipment { get; set; }
         public User? owner { get; set; }
         public ICollection<SpellForClass> usesSpells { get; set; }
         public ICollection<DndSubclass> dndSubclasses { get; set; }

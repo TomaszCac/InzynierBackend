@@ -2,7 +2,7 @@
 {
     public class CustomDndClassFeatureDto
     {
-        public int? featureID { get; set; }
+        public int? featureId { get; set; }
         public string featureName { get; set; }
         public string featureDesc { get; set; }
     }
