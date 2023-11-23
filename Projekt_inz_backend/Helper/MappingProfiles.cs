@@ -37,6 +37,8 @@ namespace Projekt_inz_backend.Helper
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();
             CreateMap<CustomDndClassFeatureDto, CustomDndClassFeature>();
             CreateMap<User, UserDto>();
+            CreateMap<SpellForSubclass, SpellForSubclassDto>();
+            CreateMap<SpellForSubclassDto, SpellForSubclass>();
         }
 
         public class StringArrayConverter : ITypeConverter<string[,], string>

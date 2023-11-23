@@ -10,6 +10,7 @@ namespace Projekt_inz_backend.Models
         public string subclassDesc { get; set;}
         public DndClass inheritedClass { get; set; }
         public User? owner { get; set; }
+        public ICollection<SpellForSubclass> usesSpells { get; set; }
         ICollection<CustomDndSubclassFeature> customFeatures { get; set; }
 
     }

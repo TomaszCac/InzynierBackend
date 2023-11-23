@@ -505,6 +505,21 @@ namespace Projekt_inz_backend.Migrations
                     b.ToTable("spellsForClasses");
                 });
 
+            modelBuilder.Entity("Projekt_inz_backend.Models.SpellForSubclass", b =>
+                {
+                    b.Property<int>("spellId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("subclassId")
+                        .HasColumnType("int");
+
+                    b.HasKey("spellId", "subclassId");
+
+                    b.HasIndex("subclassId");
+
+                    b.ToTable("spellsForSubclasses");
+                });
+
             modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
                 {
                     b.Property<int>("userID")
@@ -644,7 +659,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired();
 
                     b.HasOne("Projekt_inz_backend.Models.Spell", "spellUsed")
-                        .WithMany("usedBy")
+                        .WithMany("usedByClass")
                         .HasForeignKey("spellId")
                         .IsRequired();
 
@@ -653,12 +668,34 @@ namespace Projekt_inz_backend.Migrations
                     b.Navigation("usingClass");
                 });
 
+            modelBuilder.Entity("Projekt_inz_backend.Models.SpellForSubclass", b =>
+                {
+                    b.HasOne("Projekt_inz_backend.Models.Spell", "spellUsed")
+                        .WithMany("usedBySubclass")
+                        .HasForeignKey("spellId")
+                        .IsRequired();
+
+                    b.HasOne("Projekt_inz_backend.Models.DndSubclass", "usingSubclass")
+                        .WithMany("usesSpells")
+                        .HasForeignKey("subclassId")
+                        .IsRequired();
+
+                    b.Navigation("spellUsed");
+
+                    b.Navigation("usingSubclass");
+                });
+
             modelBuilder.Entity("Projekt_inz_backend.Models.DndClass", b =>
                 {
                     b.Navigation("customFeatures");
 
                     b.Navigation("dndSubclasses");
 
+                    b.Navigation("usesSpells");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.DndSubclass", b =>
+                {
                     b.Navigation("usesSpells");
                 });
 
@@ -674,7 +711,9 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.Spell", b =>
                 {
-                    b.Navigation("usedBy");
+                    b.Navigation("usedByClass");
+
+                    b.Navigation("usedBySubclass");
                 });
 
             modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
