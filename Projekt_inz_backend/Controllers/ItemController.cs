@@ -29,10 +29,10 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<ItemController>/5
-        [HttpGet("id/{id}")]
-        public IActionResult GetItem(int id)
+        [HttpGet("id/{itemid}")]
+        public IActionResult GetItem(int itemid)
         {
-            return Ok(_mapper.Map<ItemDto>(_itemrepos.GetItem(id)));
+            return Ok(_mapper.Map<ItemDto>(_itemrepos.GetItem(itemid)));
         }
         [HttpGet("owner/{ownerid}")]
         public IActionResult GetItemsByOwner(int ownerid)

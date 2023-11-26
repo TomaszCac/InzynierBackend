@@ -27,25 +27,25 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.getDndClasses()));
+            return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClasses()));
         }
 
         // GET api/dndclass/id/1
         [HttpGet("id/{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_mapper.Map<DndClassDto>(_dndclassrepos.getDndClass(id)));
+            return Ok(_mapper.Map<DndClassDto>(_dndclassrepos.GetDndClass(id)));
         }
-        [HttpGet("itemName/{itemName}")]
-        public IActionResult GetByName(string name)
+        [HttpGet("name/{classname}")]
+        public IActionResult GetByName(string classname)
         {
-            return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(name)));
+            return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(classname)));
         }
         //GET api/dndclass/spells/1
-        [HttpGet("spells/{id}")]
-        public IActionResult GetSpells(int id)
+        [HttpGet("spells/{classid}")]
+        public IActionResult GetSpells(int classid)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_dndclassrepos.GetClassSpells(id)));
+            return Ok(_mapper.Map<List<SpellDto>>(_dndclassrepos.GetClassSpells(classid)));
         }
         // POST api/database
         [HttpPost]

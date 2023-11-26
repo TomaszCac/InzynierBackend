@@ -28,35 +28,34 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<SpellController>/id/5
-        [HttpGet("id/{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("id/{spellid}")]
+        public IActionResult Get(int spellid)
         {
-            return Ok(_mapper.Map<SpellDto>(_spellrepos.GetSpellById(id)));
+            return Ok(_mapper.Map<SpellDto>(_spellrepos.GetSpellById(spellid)));
         }
 
-        [HttpGet("itemName/{itemName}")]
-        public IActionResult GetSpellByLvl(string name)
+        [HttpGet("name/{spellname}")]
+        public IActionResult GetSpellByLvl(string spellname)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByName(name)));
+            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByName(spellname)));
         }
-        [HttpGet("lvl/{lvl}")]
-        public IActionResult GetLvl(int lvl)
+        [HttpGet("lvl/{spelllevel}")]
+        public IActionResult GetLvl(int spelllevel)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByLvl(lvl)));
+            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByLvl(spelllevel)));
         }
-        [HttpGet("owner/{id}")]
-        public IActionResult GetOwner(int id)
+        [HttpGet("owner/{spellid}")]
+        public IActionResult GetOwner(int spellid)
         {
-            return Ok(_mapper.Map<UserDto>(_spellrepos.GetOwner(id)));
+            return Ok(_mapper.Map<UserDto>(_spellrepos.GetOwner(spellid)));
         }
-        [HttpGet("classes/{id}")]
-        public IActionResult GetClasses(int id)
+        [HttpGet("classes/{spellid}")]
+        public IActionResult GetClasses(int spellid)
         {
-            return Ok(_mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(id)));
+            return Ok(_mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(spellid)));
         }
 
         // POST api/<SpellController>
-        // wazne aby klasa spell byla bez id podanego
         [HttpPost]
         public IActionResult CreateSpell(int ownerId, SpellDto spell)
         {

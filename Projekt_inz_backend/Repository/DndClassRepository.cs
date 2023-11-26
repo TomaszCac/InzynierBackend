@@ -33,7 +33,7 @@ namespace Projekt_inz_backend.Repository
             return spellsUsed;
         }
 
-        public DndClass getDndClass(int id)
+        public DndClass GetDndClass(int id)
         {
             return _context.dndClasses.Where(b => b.classId == id).FirstOrDefault();
         }
@@ -43,7 +43,7 @@ namespace Projekt_inz_backend.Repository
             return _context.dndClasses.Where(b => b.className == name).ToList();
         }
 
-        public ICollection<DndClass> getDndClasses()
+        public ICollection<DndClass> GetDndClasses()
         {
             return _context.dndClasses.OrderBy(p => p.classId).ToList();
         }

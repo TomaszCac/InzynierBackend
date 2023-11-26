@@ -30,15 +30,15 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<EnemyController>/5
-        [HttpGet("/owner/{ownerid}")]
+        [HttpGet("owner/{ownerid}")]
         public IActionResult GetEnemyByOwner(int ownerid)
         {
             return Ok(_mapper.Map<List<EnemyDto>>(_enemyrepos.GetEnemiesByOwner(ownerid)));
         }
-        [HttpGet("/id/{id}")]
-        public IActionResult GetEnemyById(int id)
+        [HttpGet("id/{enemyid}")]
+        public IActionResult GetEnemyById(int enemyid)
         {
-            return Ok(_mapper.Map<EnemyDto>(_enemyrepos.GetEnemyById(id)));
+            return Ok(_mapper.Map<EnemyDto>(_enemyrepos.GetEnemyById(enemyid)));
         }
 
         // POST api/<EnemyController>

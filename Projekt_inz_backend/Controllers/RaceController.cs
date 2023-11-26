@@ -31,15 +31,15 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // GET api/<RaceController>/5
-        [HttpGet("id/{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("id/{raceid}")]
+        public IActionResult Get(int raceid)
         {
-            return Ok(_mapper.Map<RaceDto>(_racerepos.GetRace(id)));
+            return Ok(_mapper.Map<RaceDto>(_racerepos.GetRace(raceid)));
         }
-        [HttpGet("itemName/{itemName}")]
-        public IActionResult GetByName(string name)
+        [HttpGet("name/{racename}")]
+        public IActionResult GetByName(string racename)
         {
-            return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRace(name)));
+            return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRace(racename)));
         }
         // POST api/<RaceController>
         [HttpPost]
