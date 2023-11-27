@@ -11,6 +11,8 @@ namespace Projekt_inz_backend.Interfaces
         public bool UpdateRace(Race race);
         public bool DeleteRace(Race race);
         public bool Save();
+        public int GetOwnerId(int raceId);
+        public int GetUserIdByName(string username);
     }
 }
 

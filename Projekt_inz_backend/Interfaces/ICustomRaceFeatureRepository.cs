@@ -10,5 +10,9 @@ namespace Projekt_inz_backend.Interfaces
         public bool CreateCustomRaceFeature(int raceId, CustomRaceFeature customRaceFeature);
         public bool UpdateCustomRaceFeature(CustomRaceFeature customRaceFeature);
         public bool DeleteCustomRaceFeature(CustomRaceFeature customRaceFeature);
+        public int GetOwnerIdByFeatureId(int featureId);
+        public int GetOwnerIdByRaceId(int raceId);
+        public int GetUserIdByName(string username);
+        
     }
 }
