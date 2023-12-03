@@ -11,6 +11,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool Save();
         public bool VerifyUsername(string username);
         public bool VerifyPassword(UserDto user);
+        public bool VerifyEmail(string email);
         public bool CreateUser(User user);
         public string CreateToken(UserDto user);
         public User GetUserByName(string username);

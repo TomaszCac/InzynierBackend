@@ -52,6 +52,16 @@ namespace Projekt_inz_backend.Controllers
                 return BadRequest(ModelState);
             }
             var userMap = _mapper.Map<User>(user);
+            if (!_userrepos.VerifyEmail(userMap.email))
+            {
+                ModelState.AddModelError("", "Podany mail jest juz zajety");
+                return StatusCode(500, ModelState);
+            }
+            if (!_userrepos.VerifyUsername(userMap.username))
+            {
+                ModelState.AddModelError("", "Podana nazwa uzytkownika jest juz zajeta");
+                return StatusCode(500, ModelState);
+            }
 
             if (!_userrepos.CreateUser(userMap))
             {

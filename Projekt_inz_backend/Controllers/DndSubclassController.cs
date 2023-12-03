@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Projekt_inz_backend.Dto;
 using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
+using Projekt_inz_backend.Services.UserServices;
 
 namespace Projekt_inz_backend.Controllers
 {
@@ -14,30 +16,32 @@ namespace Projekt_inz_backend.Controllers
     {
         private readonly IDndSubclassRepository _subclassrepos;
         private readonly IMapper _mapper;
+        private readonly IUserService _userservice;
 
-        public DndSubclassController(IDndSubclassRepository subclassrepos, IMapper mapper)
+        public DndSubclassController(IDndSubclassRepository subclassrepos, IMapper mapper, IUserService userservice)
         {
             _subclassrepos = subclassrepos;
             _mapper = mapper;
+            _userservice = userservice;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult GetSubclasses()
         {
             return Ok(_mapper.Map<List<DndSubclassDto>>(_subclassrepos.GetSubclasses()));
         }
-        [HttpGet("id/{subclassid}")]
+        [HttpGet("id/{subclassid}"), AllowAnonymous]
         public IActionResult GetSubclass(int subclassid)
         {
             return Ok(_mapper.Map<DndSubclassDto>(_subclassrepos.GetSubclass(subclassid)));
         }
-        [HttpGet("class/{classid}")]
+        [HttpGet("class/{classid}"), AllowAnonymous]
         public IActionResult GetSubclassesFromClass(int classid)
         {
             return Ok(_mapper.Map<List<DndSubclassDto>>(_subclassrepos.GetSubclassesFromClass(classid)));
         }
-        [HttpPost]
-        public IActionResult CreateSubclass(int ownerid, int classid, [FromBody] DndSubclassDto subclass)
+        [HttpPost, Authorize(Roles = "user,admin")]
+        public IActionResult CreateSubclass(int classid, [FromBody] DndSubclassDto subclass)
         {
             subclass.subclassId = null;
             if (subclass == null)
@@ -46,14 +50,14 @@ namespace Projekt_inz_backend.Controllers
             }
             var subclassMap = _mapper.Map<DndSubclass>(subclass);
 
-            if (!_subclassrepos.CreateSubclass(ownerid, classid, subclassMap))
+            if (!_subclassrepos.CreateSubclass(_subclassrepos.GetUserIdByName(_userservice.GetName()), classid, subclassMap))
             {
                 ModelState.AddModelError("", "Cos poszlo nie tak z zapisem");
                 return StatusCode(500, ModelState);
             }
             return Ok("Succesfuly created");
         }
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "user,admin")]
         public IActionResult UpdateSubclass([FromBody] DndSubclassDto subclass)
         {
             var subclassMap = _mapper.Map<DndSubclass>(subclass);
@@ -64,7 +68,7 @@ namespace Projekt_inz_backend.Controllers
             }
             return NoContent();
         }
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "user,admin")]
         public IActionResult DeleteSubclass([FromBody] DndSubclassDto subclass)
         {
             var subclassMap = _mapper.Map<DndSubclass>(subclass);

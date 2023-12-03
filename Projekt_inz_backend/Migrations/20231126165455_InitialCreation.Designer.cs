@@ -525,11 +525,11 @@ namespace Projekt_inz_backend.Migrations
 
             modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
                 {
-                    b.Property<int>("userID")
+                    b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userId"));
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -551,7 +551,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("userID");
+                    b.HasKey("userId");
 
                     b.ToTable("Users");
                 });

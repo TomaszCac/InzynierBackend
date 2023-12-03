@@ -11,6 +11,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool UpdateSubclass(DndSubclass subclass);
         public bool CreateSubclass(int ownerid, int classid, DndSubclass subclass);
         public ICollection<DndSubclass> GetSubclassesFromClass(int classid);
+        int GetUserIdByName(string username);
 
 
     }

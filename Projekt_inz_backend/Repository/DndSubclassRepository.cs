@@ -22,6 +22,10 @@ namespace Projekt_inz_backend.Repository
             return Save();
             
         }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
 
         public bool DeleteSubclass(DndSubclass subclass)
         {

@@ -73,6 +73,14 @@ namespace Projekt_inz_backend.Repository
             return saved > 0 ? true : false;
         }
 
+        public bool VerifyEmail(string email)
+        {
+            if (_context.Users.Any(b => b.email == email))
+                return true;
+            else
+                return false;
+        }
+
         public bool VerifyPassword(UserDto user)
         {
             using (var hmac = new HMACSHA512(_context.Users.Where(b => b.username == user.username).FirstOrDefault().passwordSalt))
