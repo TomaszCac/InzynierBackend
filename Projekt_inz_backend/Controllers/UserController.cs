@@ -26,11 +26,16 @@ namespace Projekt_inz_backend.Controllers
         }
         // GET: api/<UserController>
         [HttpGet, Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<UserDto>>(_userrepos.GetUsers()));
         }
         [HttpGet("user"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult GetActualUser()
         {
             return Ok(_mapper.Map<UserDto>(_userrepos.GetUserByName(_userservice.GetName())));
@@ -38,13 +43,22 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/<UserController>/5
         [HttpGet("{id}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetUser(int id)
         {
-            return Ok(_mapper.Map<UserDto>(_userrepos.GetUserById(id)));
+            var user = _mapper.Map<UserDto>(_userrepos.GetUserById(id));
+            if (user == null)
+                return NotFound();
+            return Ok(user);
         }
 
         // POST api/<UserController>
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Register(UserDto user)
         {
             if (user == null)
@@ -52,15 +66,15 @@ namespace Projekt_inz_backend.Controllers
                 return BadRequest(ModelState);
             }
             var userMap = _mapper.Map<User>(user);
-            if (!_userrepos.VerifyEmail(userMap.email))
+            if (_userrepos.VerifyEmail(userMap.email))
             {
                 ModelState.AddModelError("", "Podany mail jest juz zajety");
-                return StatusCode(500, ModelState);
+                return StatusCode(409, ModelState);
             }
-            if (!_userrepos.VerifyUsername(userMap.username))
+            if (_userrepos.VerifyUsername(userMap.username))
             {
                 ModelState.AddModelError("", "Podana nazwa uzytkownika jest juz zajeta");
-                return StatusCode(500, ModelState);
+                return StatusCode(409, ModelState);
             }
 
             if (!_userrepos.CreateUser(userMap))
@@ -71,9 +85,11 @@ namespace Projekt_inz_backend.Controllers
             return Ok("Utworzono nowego uzytkownika");
         }
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Login([FromBody]UserDto request)
         {
-            if (!_userrepos.VerifyUsername(request.username))
+            if (!_userrepos.VerifyEmail(request.email))
             {
                 ModelState.AddModelError("", "Nie znaleziono podanego uzytkownika");
                 return BadRequest(ModelState);
@@ -89,6 +105,10 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}"), Authorize(Roles ="admin")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult Delete(int id)
         {
             if (!_userrepos.DeleteUser(id))
