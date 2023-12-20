@@ -6,6 +6,7 @@ namespace Projekt_inz_backend.Interfaces
     {
         public ICollection<DndSubclass> GetSubclasses();
         public DndSubclass GetSubclass(int subclassId);
+        public ICollection<DndSubclass> GetSubclassesByOwner(int ownerId);
         public bool Save();
         public bool DeleteSubclass(DndSubclass subclass);
         public bool UpdateSubclass(DndSubclass subclass);

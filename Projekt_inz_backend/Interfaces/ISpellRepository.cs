@@ -16,5 +16,6 @@ namespace Projekt_inz_backend.Interfaces
         bool Save();
         public int GetOwnerId(int spellId);
         public int GetUserIdByName(string username);
+        ICollection<Spell> GetSpellsByOwner(int ownerId);
     }
 }

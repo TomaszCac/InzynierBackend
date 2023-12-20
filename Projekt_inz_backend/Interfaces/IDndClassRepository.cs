@@ -14,6 +14,7 @@ namespace Projekt_inz_backend.Interfaces
         ICollection<Spell> GetClassSpells(int id);
         public int GetOwnerId(int classId);
         public int GetUserIdByName(string username);
+        ICollection<DndClass> GetDndClassesByOwner(int ownerId);
 
 
 

@@ -78,5 +78,10 @@ namespace Projekt_inz_backend.Repository
             _context.Remove(spell);
             return Save();
         }
+
+        public ICollection<Spell> GetSpellsByOwner(int ownerId)
+        {
+            return _context.Spells.Where(b => b.owner.userID == ownerId).ToList();
+        }
     }
 }

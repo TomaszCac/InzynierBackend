@@ -60,6 +60,18 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(races);
         }
+        [HttpGet("owner/{ownerid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetByUser(int ownerid)
+        {
+            var races = _mapper.Map<List<RaceDto>>(_racerepos.GetRacesByOwner(ownerid));
+            if (races == null)
+            {
+                return NotFound();
+            }
+            return Ok(races);
+        }
         // POST api/<RaceController>
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]

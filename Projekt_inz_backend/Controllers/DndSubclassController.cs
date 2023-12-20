@@ -43,6 +43,18 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(subclass);
         }
+        [HttpGet("owner/{ownerId}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetSubclassesByOwner(int ownerId)
+        {
+            var subclasses = _mapper.Map<List<DndSubclassDto>>(_subclassrepos.GetSubclassesByOwner(ownerId));
+            if (subclasses == null)
+            {
+                return NotFound();
+            }
+            return Ok(subclasses);
+        }
         [HttpGet("class/{classid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

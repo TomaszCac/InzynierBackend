@@ -63,5 +63,10 @@ namespace Projekt_inz_backend.Repository
             _context.Update(subclass);
             return Save();
         }
+
+        public ICollection<DndSubclass> GetSubclassesByOwner(int ownerId)
+        {
+            return _context.dndSubclasses.Where(b => b.owner.userID == ownerId).ToList();
+        }
     }
 }

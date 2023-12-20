@@ -60,5 +60,10 @@ namespace Projekt_inz_backend.Repository
             _context.Update(race);
             return Save();
         }
+
+        public ICollection<Race> GetRacesByOwner(int ownerId)
+        {
+            return _context.Races.Where(b => b.owner.userID == ownerId).ToList();
+        }
     }
 }

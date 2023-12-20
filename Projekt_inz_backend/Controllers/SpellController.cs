@@ -71,7 +71,7 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(spells);
         }
-        [HttpGet("owner/{spellid}"), AllowAnonymous]
+        [HttpGet("owner/spell/{spellid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetOwner(int spellid)
@@ -94,6 +94,18 @@ namespace Projekt_inz_backend.Controllers
                 return NotFound();
             }
             return Ok(classes);
+        }
+        [HttpGet("owner/{ownerid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetUserSpells(int ownerid)
+        {
+            var spells = _mapper.Map<List<SpellDto>>(_spellrepos.GetSpellsByOwner(ownerid));
+            if (spells == null)
+            {
+                return NotFound();
+            }
+            return Ok(spells);
         }
 
         // POST api/<SpellController>

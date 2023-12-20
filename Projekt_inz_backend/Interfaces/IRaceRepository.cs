@@ -13,6 +13,8 @@ namespace Projekt_inz_backend.Interfaces
         public bool Save();
         public int GetOwnerId(int raceId);
         public int GetUserIdByName(string username);
+        public ICollection<Race> GetRacesByOwner(int ownerId);
+
     }
 }
 

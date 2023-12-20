@@ -72,6 +72,18 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(spells);
         }
+        [HttpGet("owner/{ownerId}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetDndClassesByOwner(int ownerId)
+        {
+            var classes = _mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClassesByOwner(ownerId));
+            if (classes == null)
+            {
+                return NotFound();
+            }
+            return Ok(classes);
+        }
         // POST api/database
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
