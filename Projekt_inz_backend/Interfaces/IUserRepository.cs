@@ -15,6 +15,8 @@ namespace Projekt_inz_backend.Interfaces
         public bool CreateUser(User user);
         public string CreateToken(UserDto user);
         public User GetUserByName(string username);
+        public bool UpdateUsername(string username, int userId);
+        public bool UpdatePassword(string password, int userId);
 
 
     }

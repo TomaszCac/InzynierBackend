@@ -87,7 +87,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Login([FromBody]UserDto request)
+        public IActionResult Login([FromBody] UserDto request)
         {
             if (!_userrepos.VerifyEmail(request.email))
             {
@@ -104,7 +104,7 @@ namespace Projekt_inz_backend.Controllers
         }
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}"), Authorize(Roles ="admin")]
+        [HttpDelete("{id}"), Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -117,6 +117,57 @@ namespace Projekt_inz_backend.Controllers
                 return StatusCode(500, ModelState);
             }
             return NoContent();
+        }
+        [HttpPost("edit/username"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult EditUsername(string username)
+        {
+            if (username == null || username == "")
+            {
+                return BadRequest();
+            }
+            if (!_userrepos.VerifyUsername(username))
+            {
+                var user = _userrepos.GetUserByName(_userservice.GetName());
+                if (!_userrepos.UpdateUsername(username, user.userID))
+                {
+                    ModelState.AddModelError("", "Cos poszlo nie tak ze zmiana");
+                    return StatusCode(500, ModelState);
+                }
+                return Ok("Nazwa uzytownika zostala zmieniona");
+            }
+            ModelState.AddModelError("", "Podana nazwa uzytkownika jest juz zajeta");
+            return StatusCode(409, ModelState);
+
+        }
+        [HttpPost("edit/password"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult EditPassword(Password password)
+        {
+            if (password.newPassword == null || password.newPassword == "")
+            {
+                return BadRequest();
+            }
+            var users = _userrepos.GetUserByName(_userservice.GetName());
+            UserDto user = _mapper.Map<UserDto>(users);
+            user.password = password.oldPassword;
+
+            if (_userrepos.VerifyPassword(user))
+            {
+                if (!_userrepos.UpdatePassword(password.newPassword, user.userID.Value))
+                {
+                    ModelState.AddModelError("", "Cos poszlo nie tak ze zmiana");
+                    return StatusCode(500, ModelState);
+                }
+                return Ok("Haslo zostalo zmienione");
+            }
+            ModelState.AddModelError("", "Bledne haslo");
+            return BadRequest(ModelState);
         }
     }
 }

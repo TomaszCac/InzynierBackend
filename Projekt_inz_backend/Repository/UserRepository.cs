@@ -22,7 +22,7 @@ namespace Projekt_inz_backend.Repository
 
         public string CreateToken(UserDto user)
         {
-            User userEntity = _context.Users.Where(b => b.username == user.username).FirstOrDefault();
+            User userEntity = _context.Users.Where(b => b.email == user.email).FirstOrDefault();
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userEntity.username),
@@ -71,6 +71,26 @@ namespace Projekt_inz_backend.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdatePassword(string password, int userId)
+        {
+            var user = _context.Users.Where(b => b.userID == userId).FirstOrDefault();
+            using (var hmac = new HMACSHA512())
+            {
+                user.passwordSalt = hmac.Key;
+                user.passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+            _context.Update(user);
+            return Save();
+        }
+
+        public bool UpdateUsername(string username, int userId)
+        {
+            var user = _context.Users.Where(b => b.userID == userId).FirstOrDefault();
+            user.username = username;
+            _context.Update(user);
+            return Save();
         }
 
         public bool VerifyEmail(string email)
