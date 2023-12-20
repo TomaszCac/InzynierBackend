@@ -27,6 +27,7 @@ namespace Projekt_inz_backend.Controllers
         }
         // GET: api/<SpellController>
         [HttpGet, AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpells()));
@@ -34,35 +35,74 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/<SpellController>/id/5
         [HttpGet("id/{spellid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int spellid)
         {
-            return Ok(_mapper.Map<SpellDto>(_spellrepos.GetSpellById(spellid)));
+            var spell = _mapper.Map<SpellDto>(_spellrepos.GetSpellById(spellid));
+            if (spell == null)
+            {
+                return NotFound();
+            }
+            return Ok(spell);
         }
 
         [HttpGet("name/{spellname}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetSpellByLvl(string spellname)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByName(spellname)));
+            var spells = _mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByName(spellname));
+            if (spells == null)
+            {
+                return NotFound();
+            }
+            return Ok(spells);
         }
         [HttpGet("lvl/{spelllevel}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetLvl(int spelllevel)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByLvl(spelllevel)));
+            var spells = _mapper.Map<List<SpellDto>>(_spellrepos.GetSpellByLvl(spelllevel));
+            if (spells == null)
+            {
+                return NotFound();
+            }
+            return Ok(spells);
         }
         [HttpGet("owner/{spellid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetOwner(int spellid)
         {
-            return Ok(_mapper.Map<UserDto>(_spellrepos.GetOwner(spellid)));
+            var user = _mapper.Map<UserDto>(_spellrepos.GetOwner(spellid));
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
         }
         [HttpGet("classes/{spellid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetClasses(int spellid)
         {
-            return Ok(_mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(spellid)));
+            var classes = _mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(spellid));
+            if (classes == null)
+            {
+                return NotFound();
+            }
+            return Ok(classes);
         }
 
         // POST api/<SpellController>
         // wazne aby klasa spell byla bez id podanego
         [HttpPost, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateSpell(SpellDto spell)
         {
             spell.spellId = null;
@@ -82,6 +122,11 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<SpellController>/5
         [HttpPut, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult UpdateSpell([FromBody] SpellDto updatedSpell)
         {
             if (_spellrepos.GetOwnerId(updatedSpell.spellId.Value) == _spellrepos.GetUserIdByName(_userservice.GetName())
@@ -101,6 +146,11 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<SpellController>/5
         [HttpDelete, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult DeleteSpell([FromBody] SpellDto spell)
         {
             if (_spellrepos.GetOwnerId(spell.spellId.Value) == _spellrepos.GetUserIdByName(_userservice.GetName())

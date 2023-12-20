@@ -41,6 +41,14 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.Items.Where(b => b.owner.userID == ownerid).ToList();
         }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
+        public int GetOwnerId(int itemId)
+        {
+            return _context.Items.Where(b => b.itemId == itemId).Select(b => b.owner.userID).FirstOrDefault();
+        }
 
         public bool Save()
         {

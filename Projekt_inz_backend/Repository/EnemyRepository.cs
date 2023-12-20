@@ -41,6 +41,14 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.Enemies.Where(b => b.enemyId == id).FirstOrDefault();
         }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
+        public int GetOwnerId(int enemyId)
+        {
+            return _context.Enemies.Where(b => b.enemyId == enemyId).Select(b => b.owner.userID).FirstOrDefault();
+        }
 
         public bool Save()
         {

@@ -11,5 +11,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool CreateEnemyActionEconomy(int enemyid, EnemyActionEconomy action);
         public bool DeleteEnemyActionEconomy(EnemyActionEconomy action);
         public bool UpdateEnemyActionEconomy(EnemyActionEconomy action);
+        public int GetOwnerId(int enemyId);
+        public int GetUserIdByName(string username);
     }
 }

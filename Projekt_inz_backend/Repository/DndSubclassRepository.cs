@@ -47,6 +47,10 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
         }
+        public int GetOwnerId(int subclassId)
+        {
+            return _context.dndSubclasses.Where(b => b.subclassId == subclassId).Select(b => b.owner.userID).FirstOrDefault();
+        }
 
         public bool Save()
         {

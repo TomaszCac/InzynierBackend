@@ -22,6 +22,7 @@ namespace Projekt_inz_backend.Controllers
         }
         // GET: api/<SpellForClassController>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClasses()));
@@ -29,18 +30,34 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/<SpellForClassController>/5
         [HttpGet("spells/{classid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetByClass(int classid)
         {
-            return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassByClass(classid)));
+            var spellForClasses = _mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassByClass(classid));
+            if (spellForClasses == null)
+            {
+                return NotFound();
+            }
+            return Ok(spellForClasses);
         }
         [HttpGet("classes/{spellid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBySpell(int spellid)
         {
-            return Ok(_mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassBySpell(spellid)));
+            var spellForClasses = _mapper.Map<List<SpellForClassDto>>(_spellforclassrepos.GetSpellsForClassBySpell(spellid));
+            if (spellForClasses == null)
+            {
+                return NotFound();
+            }
+            return Ok(spellForClasses);
         }
 
         // POST api/<SpellForClassController>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult CreateSpellForClass(int spellid, int classid)
         {
             if (!_spellforclassrepos.CreateSpellForClass(spellid, classid))
@@ -53,6 +70,8 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<SpellForClassController>
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult UpdateSpellForClass(int classold, int classnew, int spellold, int spellnew)
         {
             if (!_spellforclassrepos.UpdateSpellForClass(classold, classnew, spellold, spellnew))
@@ -65,6 +84,8 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<SpellForClassController>
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteSpellForClass(SpellForClassDto spellForClass)
         {
             var spellForClassMap = _mapper.Map<SpellForClass>(spellForClass);

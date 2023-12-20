@@ -11,5 +11,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool UpdateEnemy(Enemy enemy);
         public Enemy GetEnemyById(int id);
         public ICollection<Enemy> GetEnemiesByOwner(int ownerid);
+        public int GetUserIdByName(string username);
+        public int GetOwnerId(int enemyId);
     }
 }

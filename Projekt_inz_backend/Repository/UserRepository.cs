@@ -83,10 +83,10 @@ namespace Projekt_inz_backend.Repository
 
         public bool VerifyPassword(UserDto user)
         {
-            using (var hmac = new HMACSHA512(_context.Users.Where(b => b.username == user.username).FirstOrDefault().passwordSalt))
+            using (var hmac = new HMACSHA512(_context.Users.Where(b => b.email == user.email).FirstOrDefault().passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(user.password));
-                return computedHash.SequenceEqual(_context.Users.Where(b => b.username == user.username).FirstOrDefault().passwordHash);
+                return computedHash.SequenceEqual(_context.Users.Where(b => b.email == user.email).FirstOrDefault().passwordHash);
             }
         }
 

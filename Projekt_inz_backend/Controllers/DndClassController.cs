@@ -36,23 +36,48 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/dndclass/id/1
         [HttpGet("id/{id}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int id)
         {
-            return Ok(_mapper.Map<DndClassDto>(_dndclassrepos.GetDndClass(id)));
+            var dndclass = _mapper.Map<DndClassDto>(_dndclassrepos.GetDndClass(id));
+            if (dndclass == null)
+            {
+                return NotFound();
+            }
+            return Ok(dndclass);
         }
         [HttpGet("name/{classname}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetByName(string classname)
         {
-            return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(classname)));
+            var dndclasses = _mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClass(classname));
+            if (dndclasses == null)
+            {
+                return NotFound();
+            }
+            return Ok(dndclasses);
         }
         //GET api/dndclass/spells/1
         [HttpGet("spells/{classid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetSpells(int classid)
         {
-            return Ok(_mapper.Map<List<SpellDto>>(_dndclassrepos.GetClassSpells(classid)));
+            var spells = _mapper.Map<List<SpellDto>>(_dndclassrepos.GetClassSpells(classid));
+            if (spells == null)
+            {
+                return NotFound();
+            }
+            return Ok(spells);
         }
         // POST api/database
         [HttpPost, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateDndClass([FromBody] DndClassDto dndClass)
         {
             dndClass.classId = null;
@@ -72,6 +97,10 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/database
         [HttpPut, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult UpdateDndClass([FromBody] DndClassDto dndClass)
         {
             if (_dndclassrepos.GetOwnerId(dndClass.classId.Value) == _dndclassrepos.GetUserIdByName(_userservice.GetName())
@@ -91,6 +120,10 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/database
         [HttpDelete, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult DeleteDndClass(DndClassDto dndClass)
         {
             if (_dndclassrepos.GetOwnerId(dndClass.classId.Value) == _dndclassrepos.GetUserIdByName(_userservice.GetName())

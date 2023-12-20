@@ -1,4 +1,5 @@
-﻿using Projekt_inz_backend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Projekt_inz_backend.Models;
 
 namespace Projekt_inz_backend.Interfaces
 {
@@ -11,5 +12,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool UpdateCustomSubclassFeature(CustomDndSubclassFeature feature);
         public bool CreateCustomSubclassFeature(int subclassid, CustomDndSubclassFeature feature);
         public ICollection<CustomDndSubclassFeature> GetCustomDndsubclassFeaturesFromSubclass(int subclassid);
+        public int GetOwnerId(int subclassId);
+        public int GetUserIdByName(string username);
     }
 }

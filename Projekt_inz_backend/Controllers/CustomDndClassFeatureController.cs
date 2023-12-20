@@ -26,6 +26,7 @@ namespace Projekt_inz_backend.Controllers
         }
         // GET: api/<CustomDndClassFeatureController>
         [HttpGet, AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<CustomDndClassFeatureDto>>(_customclassfeaturerepos.GetCustomDndClassFeatures()));
@@ -33,13 +34,25 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/<CustomDndClassFeatureController>/5
         [HttpGet("{classid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int classid)
         {
-            return Ok(_mapper.Map<List<CustomDndClassFeatureDto>>(_customclassfeaturerepos.GetCustomDndClassFeature(classid)));
+            var features = _mapper.Map<List<CustomDndClassFeatureDto>>(_customclassfeaturerepos.GetCustomDndClassFeature(classid));
+            if (features == null)
+            {
+                return NotFound();
+            }
+            return Ok(features);
         }
 
         // POST api/<CustomDndClassFeatureController>
         [HttpPost, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateCustomDndClassFeature(int classid, [FromBody] CustomDndClassFeatureDto customFeature)
         {
             customFeature.featureId = null;
@@ -65,6 +78,10 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<CustomDndClassFeatureController>
         [HttpPut, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult UpdateCustomDndClassFeature([FromBody] CustomDndClassFeatureDto customFeature)
         {
             if (_customclassfeaturerepos.GetOwnerIdByFeatureId(customFeature.featureId.Value) == _customclassfeaturerepos.GetUserIdByName(_userservice.GetName())
@@ -84,6 +101,10 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<CustomDndClassFeatureController>
         [HttpDelete, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult DeleteCustomDndClassFeature([FromBody] CustomDndClassFeatureDto customFeature)
         {
             if (_customclassfeaturerepos.GetOwnerIdByFeatureId(customFeature.featureId.Value) == _customclassfeaturerepos.GetUserIdByName(_userservice.GetName())

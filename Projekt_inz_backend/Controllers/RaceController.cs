@@ -29,6 +29,7 @@ namespace Projekt_inz_backend.Controllers
             _userservice = userservice;
         }
         [HttpGet, AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRaces()));
@@ -36,17 +37,35 @@ namespace Projekt_inz_backend.Controllers
 
         // GET api/<RaceController>/5
         [HttpGet("id/{raceid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int raceid)
         {
-            return Ok(_mapper.Map<RaceDto>(_racerepos.GetRace(raceid)));
+            var race = _mapper.Map<RaceDto>(_racerepos.GetRace(raceid));
+            if (race == null)
+            {
+                return NotFound();
+            }
+            return Ok(race);
         }
         [HttpGet("name/{racename}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetByName(string racename)
         {
-            return Ok(_mapper.Map<List<RaceDto>>(_racerepos.GetRace(racename)));
+            var races = _mapper.Map<List<RaceDto>>(_racerepos.GetRace(racename));
+            if (races == null)
+            {
+                return NotFound();
+            }
+            return Ok(races);
         }
         // POST api/<RaceController>
         [HttpPost, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreateRace([FromBody] RaceDto race)
         {
             race.raceId = null;
@@ -66,6 +85,10 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<RaceController>/5
         [HttpPut, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult UpdateRace([FromBody] RaceDto updatedRace)
         {
             if (_racerepos.GetOwnerId(updatedRace.raceId.Value) == _racerepos.GetUserIdByName(_userservice.GetName())
@@ -86,6 +109,10 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<RaceController>/5
         [HttpDelete, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public IActionResult DeleteRace(RaceDto race)
         {
             if (_racerepos.GetOwnerId(race.raceId.Value) == _racerepos.GetUserIdByName(_userservice.GetName())

@@ -11,5 +11,7 @@ namespace Projekt_inz_backend.Interfaces
         public bool DeleteItem(Item item);
         public bool UpdateItem(Item item);
         public ICollection<Item> GetItemsByOwner(int ownerid);
+        public int GetUserIdByName(string username);
+        public int GetOwnerId(int itemId);
     }
 }

@@ -25,21 +25,34 @@ namespace Projekt_inz_backend.Controllers
             _userservice = userservice;
         }
         // GET: api/<CustomRaceFeatureController>
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<CustomRaceFeatureDto>>(_customracefeaturerepos.GetCustomRaceFeatures()));
         }
 
         // GET api/<CustomRaceFeatureController>/5
-        [HttpGet("{raceid}")]
+        [HttpGet("{raceid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Get(int raceid)
         {
-            return Ok(_mapper.Map<List<CustomRaceFeatureDto>>(_customracefeaturerepos.GetCustomRaceFeature(raceid)));
+            var features = _mapper.Map<List<CustomRaceFeatureDto>>(_customracefeaturerepos.GetCustomRaceFeature(raceid));
+            if (features == null)
+            {
+                return NotFound();
+            }
+            return Ok(features);
         }
 
         // POST api/<CustomRaceFeatureController>
         [HttpPost, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CreateCustomRaceFeature(int raceid,[FromBody] CustomRaceFeatureDto customRaceFeature)
         {
             customRaceFeature.featureId = null;
@@ -66,6 +79,10 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<CustomRaceFeatureController>/5
         [HttpPut, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult UpdateCustomRaceFeature([FromBody] CustomRaceFeatureDto customRaceFeature)
         {
             if (_customracefeaturerepos.GetOwnerIdByFeatureId(customRaceFeature.featureId.Value) == _customracefeaturerepos.GetUserIdByName(_userservice.GetName())
@@ -85,6 +102,10 @@ namespace Projekt_inz_backend.Controllers
 
         // DELETE api/<CustomRaceFeatureController>/5
         [HttpDelete, Authorize(Roles = "user,admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult DeleteCustomRaceFeature(CustomRaceFeatureDto customRaceFeature)
         {
             if (_customracefeaturerepos.GetOwnerIdByFeatureId(customRaceFeature.featureId.Value) == _customracefeaturerepos.GetUserIdByName(_userservice.GetName())

@@ -40,6 +40,14 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.customDndSubclassFeatures.ToList();
         }
+        public int GetOwnerId(int subclassId)
+        {
+            return _context.dndSubclasses.Where(b => b.subclassId == subclassId).Select(b => b.owner.userID).FirstOrDefault();
+        }
+        public int GetUserIdByName(string username)
+        {
+            return _context.Users.Where(b => b.username == username).Select(b => b.userID).FirstOrDefault();
+        }
 
         public bool Save()
         {
