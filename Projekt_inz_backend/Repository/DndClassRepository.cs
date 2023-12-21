@@ -73,5 +73,9 @@ namespace Projekt_inz_backend.Repository
             _context.Update(dndClass);
             return Save();
         }
+        public ICollection<DndSubclass> GetSubclassesFromClass(int classid)
+        {
+            return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
+        }
     }
 }

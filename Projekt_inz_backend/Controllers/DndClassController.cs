@@ -84,6 +84,23 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(classes);
         }
+        [HttpGet("subclass/{classid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetSubclassesFromClass(int classid)
+        {
+            if (classid == null)
+            {
+                return BadRequest();
+            }
+            var subclasses = _mapper.Map<List<DndSubclassDto>>(_dndclassrepos.GetSubclassesFromClass(classid));
+            if (subclasses == null)
+            {
+                return NotFound();
+            }
+            return Ok(subclasses);
+        }
         // POST api/database
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]

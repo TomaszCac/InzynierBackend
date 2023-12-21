@@ -55,17 +55,21 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(subclasses);
         }
-        [HttpGet("class/{classid}"), AllowAnonymous]
+        [HttpGet("class/{subclassid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetSubclassesFromClass(int classid)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetClassFromSubclass(int subclassid)
         {
-            var subclasses = _mapper.Map<List<DndSubclassDto>>(_subclassrepos.GetSubclassesFromClass(classid));
-            if (subclasses == null)
+            if (subclassid == null)
             {
-                return NotFound();
+                return BadRequest();
             }
-            return Ok(subclasses);
+            var dndclass = _mapper.Map<DndClassDto>(_subclassrepos.GetClassFromSubclass(subclassid));
+            if (dndclass == null)
+            {
+                return BadRequest();
+            }
+            return Ok(dndclass);
         }
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]

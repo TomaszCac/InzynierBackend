@@ -15,6 +15,7 @@ namespace Projekt_inz_backend.Interfaces
         public int GetOwnerId(int classId);
         public int GetUserIdByName(string username);
         ICollection<DndClass> GetDndClassesByOwner(int ownerId);
+        public ICollection<DndSubclass> GetSubclassesFromClass(int classid);
 
 
 

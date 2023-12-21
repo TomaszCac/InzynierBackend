@@ -42,11 +42,6 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.dndSubclasses.ToList();
         }
-
-        public ICollection<DndSubclass> GetSubclassesFromClass(int classid)
-        {
-            return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
-        }
         public int GetOwnerId(int subclassId)
         {
             return _context.dndSubclasses.Where(b => b.subclassId == subclassId).Select(b => b.owner.userID).FirstOrDefault();
@@ -67,6 +62,11 @@ namespace Projekt_inz_backend.Repository
         public ICollection<DndSubclass> GetSubclassesByOwner(int ownerId)
         {
             return _context.dndSubclasses.Where(b => b.owner.userID == ownerId).ToList();
+        }
+
+        public DndClass GetClassFromSubclass(int subclassId)
+        {
+            return _context.dndSubclasses.Where(b => b.subclassId == subclassId).Select(b => b.inheritedClass).FirstOrDefault();
         }
     }
 }
