@@ -13,5 +13,8 @@ namespace Projekt_inz_backend.Interfaces
         public ICollection<Enemy> GetEnemiesByOwner(int ownerid);
         public int GetUserIdByName(string username);
         public int GetOwnerId(int enemyId);
+        public int Upvotes(int enemyId);
+        public bool Upvote(int userid, int enemyId);
+        public bool CheckUpvote(int userid, int enemyId);
     }
 }
