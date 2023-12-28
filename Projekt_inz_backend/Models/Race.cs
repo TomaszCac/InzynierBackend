@@ -18,6 +18,7 @@ namespace Projekt_inz_backend.Models
         public string raceDescription { get; set; }
         public string raceLanguages { get; set; }
         public User? owner { get; set; }
+        public string ownerName { get; set; }
         public ICollection<CustomRaceFeature> customFeatures { get; set; }
     }
 }

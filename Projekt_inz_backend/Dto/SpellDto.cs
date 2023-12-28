@@ -12,5 +12,6 @@
         public int spellLevel { get; set; }
         public string spellDesc { get; set; }
         public string spellAHL { get; set; }
+        public string ownerName { get; set; }
     }
 }

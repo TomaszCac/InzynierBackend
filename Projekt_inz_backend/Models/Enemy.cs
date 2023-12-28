@@ -28,6 +28,7 @@ namespace Projekt_inz_backend.Models
         public string enemyDangerLvl { get; set; }
         public string enemyProficencyBonus { get; set; }
         public User? owner { get; set; }
+        public string ownerName { get; set; }
         public ICollection<EnemyActionEconomy> actionEcononomy { get; set; }
     }
 }

@@ -20,5 +20,6 @@
         public string classSavingThrows { get; set; }
         public string classSkills { get; set; }
         public string classEquipment { get; set; }
+        public string ownerName { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace Projekt_inz_backend.Dto
         public string itemRarity { get; set; }
         public string itemDescription { get; set; }
         public string itemWeight { get; set; }
+        public string ownerName { get; set; }
     }
 }

@@ -26,5 +26,6 @@ namespace Projekt_inz_backend.Dto
         public string enemyLanguages { get; set; }
         public string enemyDangerLvl { get; set; }
         public string enemyProficencyBonus { get; set; }
+        public string ownerName { get; set; }
     }
 }

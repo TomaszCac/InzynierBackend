@@ -11,5 +11,6 @@ namespace Projekt_inz_backend.Models
         public string itemDescription { get; set; }
         public string itemWeight {  get; set; }
         public User? owner { get; set; }
+        public string ownerName { get; set; }
     }
 }

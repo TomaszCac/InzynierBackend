@@ -14,5 +14,6 @@
         public string raceSpeed { get; set; }
         public string raceLanguages { get; set; }
         public string raceDescription { get; set; }
+        public string ownerName { get; set; }
     }
 }
