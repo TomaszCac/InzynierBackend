@@ -14,7 +14,9 @@ namespace Projekt_inz_backend.Interfaces
         int GetUserIdByName(string username);
         public int GetOwnerId(int subclassId);
         public DndClass GetClassFromSubclass(int subclassId);
-
+        public int Upvotes(int subclassId);
+        public bool Upvote(int userid, int subclassId);
+        public bool CheckUpvote(int userid, int subclassId);
 
     }
 }

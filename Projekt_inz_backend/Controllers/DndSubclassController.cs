@@ -71,6 +71,49 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(dndclass);
         }
+        [HttpGet("upvotes/{subclassid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Upvotes(int subclassid)
+        {
+            if (subclassid == null)
+            {
+                return BadRequest();
+            }
+            return Ok(_subclassrepos.Upvotes(subclassid));
+        }
+        [HttpGet("upvote/{subclassid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Upvote(int subclassid)
+        {
+            if (subclassid == null)
+            {
+                return BadRequest();
+            }
+            if (!_subclassrepos.Upvote(_subclassrepos.GetUserIdByName(_userservice.GetName()), subclassid))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z upvote");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
+        }
+        [HttpGet("checkifupvote/{subclassid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CheckUpvote(int subclassid)
+        {
+            if (subclassid == null)
+            {
+                return BadRequest();
+            }
+            if (!_subclassrepos.CheckUpvote(_subclassrepos.GetUserIdByName(_userservice.GetName()), subclassid))
+            {
+                return Ok(false);
+            }
+            return Ok(true);
+        }
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
