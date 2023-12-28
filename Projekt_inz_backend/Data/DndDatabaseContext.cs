@@ -25,6 +25,7 @@ namespace Projekt_inz_backend.Data
         public DbSet<DndSubclass> dndSubclasses { get; set; }
         public DbSet<CustomDndSubclassFeature> customDndSubclassFeatures { get; set; }
         public DbSet<SpellForSubclass> spellsForSubclasses { get; set; }
+        public DbSet<Upvote> upvotes { get; set; }
 
 
 

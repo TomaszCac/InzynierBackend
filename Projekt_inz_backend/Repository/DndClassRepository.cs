@@ -77,5 +77,36 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
         }
+
+        public int Upvotes(int classid)
+        {
+            return _context.upvotes.Where(b => b.category == "dndclass" && b.categoryId == classid).Count();
+        }
+
+        public bool Upvote(int userid, int classid)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "dndclass" && b.userId == userid && b.categoryId == classid).FirstOrDefault();
+            if (upvote != null)
+            {
+                _context.upvotes.Remove(upvote);
+                return Save();
+            }
+            upvote = new Upvote();
+            upvote.userId = userid;
+            upvote.category = "dndclass";
+            upvote.categoryId = classid;
+            _context.upvotes.Add(upvote);
+            return Save();
+        }
+
+        public bool CheckUpvote(int userid, int classid)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "dndclass" && b.userId == userid && b.categoryId == classid).FirstOrDefault();
+            if (upvote != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

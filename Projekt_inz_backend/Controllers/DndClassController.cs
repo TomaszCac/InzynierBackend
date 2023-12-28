@@ -101,6 +101,42 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(subclasses);
         }
+        [HttpGet("upvotes/{classid}"), AllowAnonymous]
+        public IActionResult Upvotes(int classid)
+        {
+            if (classid == null)
+            {
+                return BadRequest();
+            }
+            return Ok(_dndclassrepos.Upvotes(classid));
+        }
+        [HttpGet("upvote/{classid}"), Authorize]
+        public IActionResult Upvote(int classid)
+        {
+            if (classid == null)
+            {
+                return BadRequest();
+            }
+            if (!_dndclassrepos.Upvote(_dndclassrepos.GetUserIdByName(_userservice.GetName()), classid))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z upvote");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
+        }
+        [HttpGet("checkifupvote/{classid}"), Authorize]
+        public IActionResult CheckUpvote(int classid)
+        {
+            if (classid == null)
+            {
+                return BadRequest();
+            }
+            if (!_dndclassrepos.CheckUpvote(_dndclassrepos.GetUserIdByName(_userservice.GetName()), classid))
+            {
+                return Ok(false);
+            }
+            return Ok(true);
+        }
         // POST api/database
         [HttpPost, Authorize(Roles = "user,admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
