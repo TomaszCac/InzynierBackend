@@ -58,6 +58,49 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(items);
         }
+        [HttpGet("upvotes/{itemid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Upvotes(int itemid)
+        {
+            if (itemid == null)
+            {
+                return BadRequest();
+            }
+            return Ok(_itemrepos.Upvotes(itemid));
+        }
+        [HttpGet("upvote/{itemid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Upvote(int itemid)
+        {
+            if (itemid == null)
+            {
+                return BadRequest();
+            }
+            if (!_itemrepos.Upvote(_itemrepos.GetUserIdByName(_userservice.GetName()), itemid))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z upvote");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
+        }
+        [HttpGet("checkifupvote/{itemid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CheckUpvote(int itemid)
+        {
+            if (itemid == null)
+            {
+                return BadRequest();
+            }
+            if (!_itemrepos.CheckUpvote(_itemrepos.GetUserIdByName(_userservice.GetName()), itemid))
+            {
+                return Ok(false);
+            }
+            return Ok(true);
+        }
 
         // POST api/<ItemController>
         [HttpPost, Authorize(Roles = "user,admin")]
