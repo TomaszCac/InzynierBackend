@@ -65,5 +65,36 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.Races.Where(b => b.owner.userID == ownerId).ToList();
         }
+
+        public int Upvotes(int raceId)
+        {
+            return _context.upvotes.Where(b => b.category == "race" && b.categoryId == raceId).Count();
+        }
+
+        public bool Upvote(int userid, int raceId)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "race" && b.userId == userid && b.categoryId == raceId).FirstOrDefault();
+            if (upvote != null)
+            {
+                _context.upvotes.Remove(upvote);
+                return Save();
+            }
+            upvote = new Upvote();
+            upvote.userId = userid;
+            upvote.category = "race";
+            upvote.categoryId = raceId;
+            _context.upvotes.Add(upvote);
+            return Save();
+        }
+
+        public bool CheckUpvote(int userid, int raceId)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "race" && b.userId == userid && b.categoryId == raceId).FirstOrDefault();
+            if (upvote != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

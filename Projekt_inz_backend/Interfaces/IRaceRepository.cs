@@ -14,6 +14,9 @@ namespace Projekt_inz_backend.Interfaces
         public int GetOwnerId(int raceId);
         public int GetUserIdByName(string username);
         public ICollection<Race> GetRacesByOwner(int ownerId);
+        public int Upvotes(int raceId);
+        public bool Upvote(int userid, int raceId);
+        public bool CheckUpvote(int userid, int raceId);
 
     }
 }
