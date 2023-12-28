@@ -83,5 +83,36 @@ namespace Projekt_inz_backend.Repository
         {
             return _context.Spells.Where(b => b.owner.userID == ownerId).ToList();
         }
+
+        public int Upvotes(int spellId)
+        {
+            return _context.upvotes.Where(b => b.category == "spell" && b.categoryId == spellId).Count();
+        }
+
+        public bool Upvote(int userid, int spellId)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "spell" && b.userId == userid && b.categoryId == spellId).FirstOrDefault();
+            if (upvote != null)
+            {
+                _context.upvotes.Remove(upvote);
+                return Save();
+            }
+            upvote = new Upvote();
+            upvote.userId = userid;
+            upvote.category = "spell";
+            upvote.categoryId = spellId;
+            _context.upvotes.Add(upvote);
+            return Save();
+        }
+
+        public bool CheckUpvote(int userid, int spellId)
+        {
+            Upvote upvote = _context.upvotes.Where(b => b.category == "spell" && b.userId == userid && b.categoryId == spellId).FirstOrDefault();
+            if (upvote != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

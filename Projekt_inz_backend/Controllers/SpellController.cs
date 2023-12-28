@@ -107,6 +107,49 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(spells);
         }
+        [HttpGet("upvotes/{spellid}"), AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Upvotes(int spellid)
+        {
+            if (spellid == null)
+            {
+                return BadRequest();
+            }
+            return Ok(_spellrepos.Upvotes(spellid));
+        }
+        [HttpGet("upvote/{spellid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Upvote(int spellid)
+        {
+            if (spellid == null)
+            {
+                return BadRequest();
+            }
+            if (!_spellrepos.Upvote(_spellrepos.GetUserIdByName(_userservice.GetName()), spellid))
+            {
+                ModelState.AddModelError("", "Cos poszlo nie tak z upvote");
+                return StatusCode(500, ModelState);
+            }
+            return Ok();
+        }
+        [HttpGet("checkifupvote/{spellid}"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CheckUpvote(int spellid)
+        {
+            if (spellid == null)
+            {
+                return BadRequest();
+            }
+            if (!_spellrepos.CheckUpvote(_spellrepos.GetUserIdByName(_userservice.GetName()), spellid))
+            {
+                return Ok(false);
+            }
+            return Ok(true);
+        }
 
         // POST api/<SpellController>
         // wazne aby klasa spell byla bez id podanego
