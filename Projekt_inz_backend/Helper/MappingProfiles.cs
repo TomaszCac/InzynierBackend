@@ -67,6 +67,7 @@ namespace Projekt_inz_backend.Helper
                 user.email = source.email;
                 user.userID = source.userID;
                 user.password = null;
+                user.role = source.role;
                 return user;
             }
             
