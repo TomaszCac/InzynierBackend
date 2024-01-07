@@ -17,6 +17,7 @@ namespace Projekt_inz_backend.Repository
         {
             var ownerEntity = _context.Users.Where(b => b.userID == ownerid).FirstOrDefault();
             item.owner = ownerEntity;
+            item.upvotes = 0;
             _context.Add(item);
             return Save();
         }
@@ -58,20 +59,19 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateItem(Item item)
         {
+            var temp = _context.Items.Where(b => b.itemId == item.itemId).Select(b => b.upvotes).FirstOrDefault();
+            item.upvotes = temp;
             _context.Update(item);
             return Save();
-        }
-
-        public int Upvotes(int itemId)
-        {
-            return _context.upvotes.Where(b => b.category == "item" && b.categoryId == itemId).Count();
         }
 
         public bool Upvote(int userid, int itemId)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "item" && b.userId == userid && b.categoryId == itemId).FirstOrDefault();
+            var item = _context.Items.Where(b => b.itemId == itemId).FirstOrDefault();
             if (upvote != null)
             {
+                item.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -79,6 +79,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "item";
             upvote.categoryId = itemId;
+            item.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }

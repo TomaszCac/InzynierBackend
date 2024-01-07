@@ -13,5 +13,6 @@
         public string spellDesc { get; set; }
         public string spellAHL { get; set; }
         public string ownerName { get; set; }
+        public int? upvotes { get; set; }
     }
 }

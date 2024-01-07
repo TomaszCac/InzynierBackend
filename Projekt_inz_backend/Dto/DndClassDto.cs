@@ -21,5 +21,6 @@
         public string classSkills { get; set; }
         public string classEquipment { get; set; }
         public string ownerName { get; set; }
+        public int? upvotes { get; set; }
     }
 }

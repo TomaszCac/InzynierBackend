@@ -71,17 +71,6 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(dndclass);
         }
-        [HttpGet("upvotes/{subclassid}"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Upvotes(int subclassid)
-        {
-            if (subclassid == null)
-            {
-                return BadRequest();
-            }
-            return Ok(_subclassrepos.Upvotes(subclassid));
-        }
         [HttpGet("upvote/{subclassid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

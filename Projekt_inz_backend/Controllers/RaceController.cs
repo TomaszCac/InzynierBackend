@@ -72,17 +72,6 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(races);
         }
-        [HttpGet("upvotes/{raceid}"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Upvotes(int raceid)
-        {
-            if (raceid == null)
-            {
-                return BadRequest();
-            }
-            return Ok(_racerepos.Upvotes(raceid));
-        }
         [HttpGet("upvote/{raceid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

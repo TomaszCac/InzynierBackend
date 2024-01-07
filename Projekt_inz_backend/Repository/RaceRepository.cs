@@ -17,6 +17,7 @@ namespace Projekt_inz_backend.Repository
         {
             User ownerEntity = _context.Users.Where(b => b.userID == ownerId).FirstOrDefault();
             race.owner = ownerEntity;
+            race.upvotes = 0;
             _context.Add(race);
             return Save();
         }
@@ -57,6 +58,8 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateRace(Race race)
         {
+            var temp = _context.Races.Where(b => b.raceId == race.raceId).Select(b => b.upvotes).FirstOrDefault();
+            race.upvotes = temp;
             _context.Update(race);
             return Save();
         }
@@ -66,16 +69,13 @@ namespace Projekt_inz_backend.Repository
             return _context.Races.Where(b => b.owner.userID == ownerId).ToList();
         }
 
-        public int Upvotes(int raceId)
-        {
-            return _context.upvotes.Where(b => b.category == "race" && b.categoryId == raceId).Count();
-        }
-
         public bool Upvote(int userid, int raceId)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "race" && b.userId == userid && b.categoryId == raceId).FirstOrDefault();
+            var race = _context.Races.Where(b => b.raceId == raceId).FirstOrDefault();
             if (upvote != null)
             {
+                race.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -83,6 +83,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "race";
             upvote.categoryId = raceId;
+            race.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }

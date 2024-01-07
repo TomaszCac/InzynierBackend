@@ -107,17 +107,6 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(spells);
         }
-        [HttpGet("upvotes/{spellid}"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Upvotes(int spellid)
-        {
-            if (spellid == null)
-            {
-                return BadRequest();
-            }
-            return Ok(_spellrepos.Upvotes(spellid));
-        }
         [HttpGet("upvote/{spellid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

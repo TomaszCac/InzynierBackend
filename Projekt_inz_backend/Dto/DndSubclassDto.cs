@@ -6,5 +6,6 @@
         public string subclassName { get; set; }
         public string subclassDesc { get; set; }
         public string ownerName { get; set; }
+        public int? upvotes { get; set; }
     }
 }

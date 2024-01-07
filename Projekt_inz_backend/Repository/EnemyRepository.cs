@@ -17,6 +17,7 @@ namespace Projekt_inz_backend.Repository
         {
             var ownerEntity = _context.Users.Where(b => b.userID == ownerid).FirstOrDefault();
             enemy.owner = ownerEntity;
+            enemy.upvotes = 0;
             _context.Add(enemy);
             return Save();
         }
@@ -58,20 +59,19 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateEnemy(Enemy enemy)
         {
+            var temp = _context.Enemies.Where(b => b.enemyId == enemy.enemyId).Select(b => b.upvotes).FirstOrDefault();
+            enemy.upvotes = temp;
             _context.Update(enemy);
             return Save();
-        }
-
-        public int Upvotes(int enemyId)
-        {
-            return _context.upvotes.Where(b => b.category == "enemy" && b.categoryId == enemyId).Count();
         }
 
         public bool Upvote(int userid, int enemyId)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "enemy" && b.userId == userid && b.categoryId == enemyId).FirstOrDefault();
+            var enemy = _context.Enemies.Where(b => b.enemyId == enemyId).FirstOrDefault();
             if (upvote != null)
             {
+                enemy.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -79,6 +79,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "enemy";
             upvote.categoryId = enemyId;
+            enemy.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }

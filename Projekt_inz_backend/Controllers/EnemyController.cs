@@ -59,17 +59,6 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(enemy);
         }
-        [HttpGet("upvotes/{enemyid}"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Upvotes(int enemyid)
-        {
-            if (enemyid == null)
-            {
-                return BadRequest();
-            }
-            return Ok(_enemyrepos.Upvotes(enemyid));
-        }
         [HttpGet("upvote/{enemyid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

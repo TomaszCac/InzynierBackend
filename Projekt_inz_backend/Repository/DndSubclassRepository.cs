@@ -18,6 +18,7 @@ namespace Projekt_inz_backend.Repository
             DndClass dndClassEntity = _context.dndClasses.Where(b => b.classId == classid).FirstOrDefault();
             subclass.owner = ownerEntity;
             subclass.inheritedClass = dndClassEntity;
+            subclass.upvotes = 0;
             _context.Add(subclass);
             return Save();
             
@@ -55,6 +56,8 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateSubclass(DndSubclass subclass)
         {
+            var temp = _context.dndSubclasses.Where(b => b.subclassId == subclass.subclassId).Select(b => b.upvotes).FirstOrDefault();
+            subclass.upvotes = temp;
             _context.Update(subclass);
             return Save();
         }
@@ -69,16 +72,13 @@ namespace Projekt_inz_backend.Repository
             return _context.dndSubclasses.Where(b => b.subclassId == subclassId).Select(b => b.inheritedClass).FirstOrDefault();
         }
 
-        public int Upvotes(int subclassId)
-        {
-            return _context.upvotes.Where(b => b.category == "subclass" && b.categoryId == subclassId).Count();
-        }
-
         public bool Upvote(int userid, int subclassId)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "subclass" && b.userId == userid && b.categoryId == subclassId).FirstOrDefault();
+            var subclass = _context.dndSubclasses.Where(b => b.subclassId == subclassId).FirstOrDefault();
             if (upvote != null)
             {
+                subclass.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -86,6 +86,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "subclass";
             upvote.categoryId = subclassId;
+            subclass.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }

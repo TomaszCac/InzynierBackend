@@ -43,6 +43,7 @@ namespace Projekt_inz_backend.Repository
         {
             var spellOwnerEntity = _context.Users.Where(b => b.userID == ownerId).FirstOrDefault();
             spell.owner = spellOwnerEntity;
+            spell.upvotes = 0;
             _context.Add(spell);
             return Save();
             
@@ -56,6 +57,8 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateSpell(Spell spell)
         {
+            var temp = _context.Spells.Where(b => b.spellId == spell.spellId).Select(b => b.upvotes).FirstOrDefault();
+            spell.upvotes = temp;
             _context.Update(spell);
             return Save();
         }
@@ -84,16 +87,13 @@ namespace Projekt_inz_backend.Repository
             return _context.Spells.Where(b => b.owner.userID == ownerId).ToList();
         }
 
-        public int Upvotes(int spellId)
-        {
-            return _context.upvotes.Where(b => b.category == "spell" && b.categoryId == spellId).Count();
-        }
-
         public bool Upvote(int userid, int spellId)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "spell" && b.userId == userid && b.categoryId == spellId).FirstOrDefault();
+            var spell = _context.Spells.Where(b => b.spellId == spellId).FirstOrDefault();
             if (upvote != null)
             {
+                spell.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -101,6 +101,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "spell";
             upvote.categoryId = spellId;
+            spell.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }

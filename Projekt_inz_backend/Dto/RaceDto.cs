@@ -15,5 +15,6 @@
         public string raceLanguages { get; set; }
         public string raceDescription { get; set; }
         public string ownerName { get; set; }
+        public int? upvotes { get; set; }
     }
 }

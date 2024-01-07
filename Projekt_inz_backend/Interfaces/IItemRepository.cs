@@ -13,7 +13,6 @@ namespace Projekt_inz_backend.Interfaces
         public ICollection<Item> GetItemsByOwner(int ownerid);
         public int GetUserIdByName(string username);
         public int GetOwnerId(int itemId);
-        public int Upvotes(int itemId);
         public bool Upvote(int userid, int itemId);
         public bool CheckUpvote(int userid, int itemId);
         public ICollection<Item> UpvotedList(int userid);

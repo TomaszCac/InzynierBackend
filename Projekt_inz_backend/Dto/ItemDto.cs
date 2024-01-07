@@ -10,5 +10,6 @@ namespace Projekt_inz_backend.Dto
         public string itemDescription { get; set; }
         public string itemWeight { get; set; }
         public string ownerName { get; set; }
+        public int? upvotes { get; set; }
     }
 }

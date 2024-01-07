@@ -17,6 +17,7 @@ namespace Projekt_inz_backend.Repository
         {
             User ownerEntity = _context.Users.Where(b => b.userID == ownerId).FirstOrDefault();
             dndClass.owner = ownerEntity;
+            dndClass.upvotes = 0;
             _context.Add(dndClass);
             return Save();
         }
@@ -70,6 +71,8 @@ namespace Projekt_inz_backend.Repository
 
         public bool UpdateDndClass(DndClass dndClass)
         {
+            var temp = _context.dndClasses.Where(b => b.classId == dndClass.classId).Select(b => b.upvotes).FirstOrDefault();
+            dndClass.upvotes = temp;
             _context.Update(dndClass);
             return Save();
         }
@@ -78,16 +81,13 @@ namespace Projekt_inz_backend.Repository
             return _context.dndSubclasses.Where(b => b.inheritedClass.classId == classid).ToList();
         }
 
-        public int Upvotes(int classid)
-        {
-            return _context.upvotes.Where(b => b.category == "dndclass" && b.categoryId == classid).Count();
-        }
-
         public bool Upvote(int userid, int classid)
         {
             Upvote upvote = _context.upvotes.Where(b => b.category == "dndclass" && b.userId == userid && b.categoryId == classid).FirstOrDefault();
+            var dndClass = _context.dndClasses.Where(b => b.classId == classid).FirstOrDefault();
             if (upvote != null)
             {
+                dndClass.upvotes -= 1;
                 _context.upvotes.Remove(upvote);
                 return Save();
             }
@@ -95,6 +95,7 @@ namespace Projekt_inz_backend.Repository
             upvote.userId = userid;
             upvote.category = "dndclass";
             upvote.categoryId = classid;
+            dndClass.upvotes += 1;
             _context.upvotes.Add(upvote);
             return Save();
         }
