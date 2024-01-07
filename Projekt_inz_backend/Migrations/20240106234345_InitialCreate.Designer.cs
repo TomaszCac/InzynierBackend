@@ -12,8 +12,8 @@ using Projekt_inz_backend.Data;
 namespace Projekt_inz_backend.Migrations
 {
     [DbContext(typeof(DndDatabaseContext))]
-    [Migration("20231126165455_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20240106234345_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,10 @@ namespace Projekt_inz_backend.Migrations
                     b.Property<int?>("inheritedClassID")
                         .HasColumnType("int");
 
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
@@ -198,6 +202,10 @@ namespace Projekt_inz_backend.Migrations
 
                     b.Property<int>("inheritedClassclassId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
@@ -305,6 +313,10 @@ namespace Projekt_inz_backend.Migrations
                     b.Property<int>("enemyWisdom")
                         .HasColumnType("int");
 
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
@@ -369,6 +381,10 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
 
@@ -389,6 +405,10 @@ namespace Projekt_inz_backend.Migrations
 
                     b.Property<int?>("inheritedRaceID")
                         .HasColumnType("int");
+
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
@@ -447,6 +467,10 @@ namespace Projekt_inz_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("spellId"));
+
+                    b.Property<string>("ownerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("owneruserID")
                         .HasColumnType("int");
@@ -523,13 +547,36 @@ namespace Projekt_inz_backend.Migrations
                     b.ToTable("spellsForSubclasses");
                 });
 
-            modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
+            modelBuilder.Entity("Projekt_inz_backend.Models.Upvote", b =>
                 {
-                    b.Property<int>("userId")
+                    b.Property<int>("upvoteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("upvoteId"));
+
+                    b.Property<string>("category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("categoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("upvoteId");
+
+                    b.ToTable("upvotes");
+                });
+
+            modelBuilder.Entity("Projekt_inz_backend.Models.User", b =>
+                {
+                    b.Property<int>("userID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userID"));
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -551,7 +598,7 @@ namespace Projekt_inz_backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("userId");
+                    b.HasKey("userID");
 
                     b.ToTable("Users");
                 });

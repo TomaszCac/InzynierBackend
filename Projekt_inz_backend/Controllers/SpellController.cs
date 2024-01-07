@@ -150,7 +150,13 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(true);
         }
-
+        [HttpGet("upvoted/"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult UpvotedList()
+        {
+            return Ok(_mapper.Map<List<SpellDto>>(_spellrepos.UpvotedList(_spellrepos.GetUserIdByName(_userservice.GetName()))));
+        }
         // POST api/<SpellController>
         // wazne aby klasa spell byla bez id podanego
         [HttpPost, Authorize(Roles = "user,admin")]

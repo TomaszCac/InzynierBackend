@@ -92,5 +92,16 @@ namespace Projekt_inz_backend.Repository
             }
             return false;
         }
+
+        public ICollection<Enemy> UpvotedList(int userid)
+        {
+            var categoryids = _context.upvotes.Where(b => b.userId == userid && b.category == "enemy").Select(b => b.categoryId).ToList();
+            List<Enemy> enemies = new List<Enemy>();
+            foreach (var categoryid in categoryids)
+            {
+                enemies.Add(_context.Enemies.Where(b => b.enemyId == categoryid).FirstOrDefault());
+            }
+            return enemies;
+        }
     }
 }

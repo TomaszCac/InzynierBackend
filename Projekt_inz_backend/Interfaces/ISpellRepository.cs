@@ -20,5 +20,6 @@ namespace Projekt_inz_backend.Interfaces
         public int Upvotes(int spellId);
         public bool Upvote(int userid, int spellId);
         public bool CheckUpvote(int userid, int spellId);
+        public ICollection<Spell> UpvotedList(int userid);
     }
 }

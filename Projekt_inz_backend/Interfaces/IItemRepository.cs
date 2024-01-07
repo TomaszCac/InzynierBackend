@@ -16,5 +16,6 @@ namespace Projekt_inz_backend.Interfaces
         public int Upvotes(int itemId);
         public bool Upvote(int userid, int itemId);
         public bool CheckUpvote(int userid, int itemId);
+        public ICollection<Item> UpvotedList(int userid);
     }
 }

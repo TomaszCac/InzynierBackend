@@ -5,11 +5,26 @@
 namespace Projekt_inz_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "upvotes",
+                columns: table => new
+                {
+                    upvoteId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userId = table.Column<int>(type: "int", nullable: false),
+                    categoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_upvotes", x => x.upvoteId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -50,7 +65,8 @@ namespace Projekt_inz_backend.Migrations
                     classSavingThrows = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     classSkills = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     classEquipment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +105,8 @@ namespace Projekt_inz_backend.Migrations
                     enemyLanguages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     enemyDangerLvl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     enemyProficencyBonus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,7 +128,8 @@ namespace Projekt_inz_backend.Migrations
                     itemRarity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     itemDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     itemWeight = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,7 +158,8 @@ namespace Projekt_inz_backend.Migrations
                     raceSpeed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     raceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     raceLanguages = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,7 +186,8 @@ namespace Projekt_inz_backend.Migrations
                     spellLevel = table.Column<int>(type: "int", nullable: false),
                     spellDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     spellAHL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,7 +229,8 @@ namespace Projekt_inz_backend.Migrations
                     subclassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     subclassDesc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inheritedClassclassId = table.Column<int>(type: "int", nullable: false),
-                    owneruserID = table.Column<int>(type: "int", nullable: true)
+                    owneruserID = table.Column<int>(type: "int", nullable: true),
+                    ownerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -424,6 +445,9 @@ namespace Projekt_inz_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "spellsForSubclasses");
+
+            migrationBuilder.DropTable(
+                name: "upvotes");
 
             migrationBuilder.DropTable(
                 name: "Races");

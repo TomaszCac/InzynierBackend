@@ -19,6 +19,7 @@ namespace Projekt_inz_backend.Interfaces
         public int Upvotes(int classid);
         public bool Upvote(int userid, int classid);
         public bool CheckUpvote(int userid, int classid);
+        public ICollection<DndClass> UpvotedList(int userid);
 
 
 

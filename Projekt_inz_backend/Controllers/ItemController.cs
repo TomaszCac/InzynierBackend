@@ -101,6 +101,13 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(true);
         }
+        [HttpGet("upvoted/"), Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult UpvotedList()
+        {
+            return Ok(_mapper.Map<List<ItemDto>>(_itemrepos.UpvotedList(_itemrepos.GetUserIdByName(_userservice.GetName()))));
+        }
 
         // POST api/<ItemController>
         [HttpPost, Authorize(Roles = "user,admin")]

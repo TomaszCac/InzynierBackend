@@ -108,5 +108,16 @@ namespace Projekt_inz_backend.Repository
             }
             return false;
         }
+
+        public ICollection<DndClass> UpvotedList(int userid)
+        {
+            var categoryids = _context.upvotes.Where(b => b.userId == userid && b.category == "dndclass").Select(b => b.categoryId).ToList();
+            List<DndClass> classes = new List<DndClass>();
+            foreach (var categoryid in categoryids)
+            {
+                classes.Add(_context.dndClasses.Where(b => b.classId == categoryid).FirstOrDefault());
+            }
+            return classes;
+        }
     }
 }
