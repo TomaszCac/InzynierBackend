@@ -76,6 +76,8 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         public IActionResult Upvote(int raceid)
         {
             if (raceid == null)
@@ -92,6 +94,8 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet("checkifupvote/{raceid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         public IActionResult CheckUpvote(int raceid)
         {
             if (raceid == null)

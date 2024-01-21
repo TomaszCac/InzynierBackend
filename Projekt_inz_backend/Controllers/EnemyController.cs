@@ -63,6 +63,7 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Upvote(int enemyid)
         {
             if (enemyid == null)
@@ -79,6 +80,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet("checkifupvote/{enemyid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CheckUpvote(int enemyid)
         {
             if (enemyid == null)

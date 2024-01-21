@@ -111,6 +111,7 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Upvote(int spellid)
         {
             if (spellid == null)
@@ -127,6 +128,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet("checkifupvote/{spellid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CheckUpvote(int spellid)
         {
             if (spellid == null)
@@ -172,7 +174,6 @@ namespace Projekt_inz_backend.Controllers
 
         // PUT api/<SpellController>/5
         [HttpPut, Authorize(Roles = "user,admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]

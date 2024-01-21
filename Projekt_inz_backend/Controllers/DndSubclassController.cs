@@ -75,6 +75,7 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Upvote(int subclassid)
         {
             if (subclassid == null)
@@ -91,6 +92,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet("checkifupvote/{subclassid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CheckUpvote(int subclassid)
         {
             if (subclassid == null)

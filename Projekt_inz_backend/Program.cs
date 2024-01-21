@@ -29,6 +29,7 @@ builder.Services.AddScoped<ICustomRaceFeatureRepository, CustomRaceFeatureReposi
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISpellForClassRepository, SpellForClassRepository>();
 builder.Services.AddScoped<ISpellForSubclassRepository, SpellForSubclassRepository>();
+builder.Services.AddScoped<ICharacterRepository, CharacterRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

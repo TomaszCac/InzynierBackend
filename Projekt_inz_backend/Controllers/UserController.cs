@@ -118,10 +118,11 @@ namespace Projekt_inz_backend.Controllers
             }
             return NoContent();
         }
-        [HttpPost("edit/username"), Authorize]
+        [HttpGet("edit/username"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult EditUsername(string username)
         {
@@ -146,6 +147,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpPost("edit/password"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult EditPassword(Password password)
         {

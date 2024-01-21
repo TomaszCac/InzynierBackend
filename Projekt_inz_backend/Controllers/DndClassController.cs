@@ -29,6 +29,7 @@ namespace Projekt_inz_backend.Controllers
         }
         // GET: api/dndclass
         [HttpGet, AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
             return Ok(_mapper.Map<List<DndClassDto>>(_dndclassrepos.GetDndClasses()));
@@ -105,6 +106,7 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult Upvote(int classid)
         {
             if (classid == null)
@@ -121,6 +123,7 @@ namespace Projekt_inz_backend.Controllers
         [HttpGet("checkifupvote/{classid}"), Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult CheckUpvote(int classid)
         {
             if (classid == null)

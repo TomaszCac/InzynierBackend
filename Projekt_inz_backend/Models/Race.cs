@@ -21,5 +21,6 @@ namespace Projekt_inz_backend.Models
         public string ownerName { get; set; }
         public int upvotes { get; set; }
         public ICollection<CustomRaceFeature> customFeatures { get; set; }
+        public ICollection<Character> characters {  get; set; }
     }
 }
