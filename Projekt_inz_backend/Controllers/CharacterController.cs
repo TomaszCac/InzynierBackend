@@ -6,8 +6,6 @@ using Projekt_inz_backend.Interfaces;
 using Projekt_inz_backend.Models;
 using Projekt_inz_backend.Services.UserServices;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Projekt_inz_backend.Controllers
 {
     [Route("api/[controller]")]

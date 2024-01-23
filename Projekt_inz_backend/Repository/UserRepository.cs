@@ -89,6 +89,36 @@ namespace Projekt_inz_backend.Repository
         {
             var user = _context.Users.Where(b => b.userID == userId).FirstOrDefault();
             user.username = username;
+            var dndClasses = _context.dndClasses.Where(b => b.owner.userID == user.userID).ToList();
+            var dndSubclasses = _context.dndSubclasses.Where(b => b.owner.userID == user.userID).ToList();
+            var enemies = _context.Enemies.Where(b => b.owner.userID == user.userID).ToList();
+            var items = _context.Items.Where(b => b.owner.userID == user.userID).ToList();
+            var races = _context.Races.Where(b => b.owner.userID == user.userID).ToList();
+            var spells = _context.Spells.Where(b => b.owner.userID == user.userID).ToList();
+            foreach ( var dndClass in dndClasses )
+            {
+                dndClass.ownerName = user.username;
+            }
+            foreach ( var subclass in dndSubclasses)
+            {
+                subclass.ownerName = user.username;
+            }
+            foreach ( var enemy in enemies)
+            {
+                enemy.ownerName = user.username;
+            }
+            foreach ( var item in items)
+            {
+                item.ownerName = user.username;
+            }
+            foreach ( var race in races)
+            {
+                race.ownerName = user.username;
+            }
+            foreach ( var spell in spells)
+            {
+                spell.ownerName = user.username;
+            }
             _context.Update(user);
             return Save();
         }
