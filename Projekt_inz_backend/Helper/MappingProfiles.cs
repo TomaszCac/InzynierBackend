@@ -103,6 +103,18 @@ namespace Projekt_inz_backend.Helper
                 character.characterSkillSleightOfHand = source.Item3.characterSkillSleightOfHand;
                 character.characterSkillStealth = source.Item3.characterSkillStealth;
                 character.characterSkillSurvival = source.Item3.characterSkillSurvival;
+                character.characterProficencyBools = new bool[24];
+                for (int i = 0; i < 24; i++)
+                {
+                    if (source.Item3.characterProficencyBools[i] == '1')
+                    {
+                        character.characterProficencyBools[i] = true;
+                    }
+                    else
+                    {
+                        character.characterProficencyBools[i] = false;
+                    }
+                }
                 character.characterSkills = source.Item3.characterSkills;
                 character.characterArmorClass = source.Item3.characterArmorClass;
                 character.characterInitiative = source.Item3.characterInitiative;
@@ -166,6 +178,19 @@ namespace Projekt_inz_backend.Helper
                 character.characterSkillSleightOfHand = source.characterSkillSleightOfHand;
                 character.characterSkillStealth = source.characterSkillStealth;
                 character.characterSkillSurvival = source.characterSkillSurvival;
+                string temp = "";
+                for (int i = 0; i < 24; i++)
+                {
+                    if (source.characterProficencyBools[i])
+                    {
+                        temp = temp + "1";
+                    }
+                    else
+                    {
+                        temp = temp + "0";
+                    }
+                }
+                character.characterProficencyBools = temp;
                 character.characterSkills = source.characterSkills;
                 character.characterArmorClass = source.characterArmorClass;
                 character.characterInitiative = source.characterInitiative;

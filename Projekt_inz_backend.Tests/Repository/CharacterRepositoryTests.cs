@@ -65,6 +65,7 @@ namespace Projekt_inz_backend.Tests.Repository
                             characterSkillSleightOfHand = 2,
                             characterSkillStealth = 2,
                             characterSkillSurvival = 2,
+                            characterProficencyBools = "011100000000000000000000",
                             characterSkills = "skills",
                             characterArmorClass = 2,
                             characterInitiative = 2,
@@ -186,6 +187,7 @@ namespace Projekt_inz_backend.Tests.Repository
                 characterIdeals = "ideals",
                 characterBonds = "bonds",
                 characterFlaws = "flaws",
+                characterProficencyBools = "011100000000000000000000",
                 owner = new User()
                 {
                     email = "marcin",
