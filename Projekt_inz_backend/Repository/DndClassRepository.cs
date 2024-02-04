@@ -27,13 +27,6 @@ namespace Projekt_inz_backend.Repository
             _context.Remove(dndClass);
             return Save();
         }
-
-        public ICollection<Spell> GetClassSpells(int id)
-        {
-            var spellsUsed = _context.spellsForClasses.Where(b => b.classId == id).Select(b => b.spellUsed).ToList();
-            return spellsUsed;
-        }
-
         public DndClass GetDndClass(int id)
         {
             return _context.dndClasses.Where(b => b.classId == id).FirstOrDefault();

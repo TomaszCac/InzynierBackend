@@ -19,7 +19,5 @@ namespace Projekt_inz_backend.Models
         public User? owner { get; set; }
         public string ownerName { get; set; }
         public int upvotes { get; set; }
-        public ICollection<SpellForClass> usedByClass { get; set; }
-        public ICollection<SpellForSubclass> usedBySubclass { get; set; }
     }
 }

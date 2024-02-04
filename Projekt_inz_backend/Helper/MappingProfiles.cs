@@ -33,16 +33,12 @@ namespace Projekt_inz_backend.Helper
             CreateMap<DndSubclassDto, DndSubclass>();
             CreateMap<CustomDndSubclassFeature, CustomDndSubclassFeatureDto>();
             CreateMap<CustomDndSubclassFeatureDto, CustomDndSubclassFeature>();
-            CreateMap<SpellForClass, SpellForClassDto>();
-            CreateMap<SpellForClassDto, SpellForClass>();
             CreateMap<CustomRaceFeature, CustomRaceFeatureDto>();
             CreateMap<CustomRaceFeatureDto, CustomRaceFeature>();
             CreateMap<CustomDndClassFeature, CustomDndClassFeatureDto>();
             CreateMap<CustomDndClassFeatureDto, CustomDndClassFeature>();
             CreateMap<User, UserDto>().ConvertUsing(new UserConverter());
             CreateMap<UserDto, User>().ConvertUsing(new UserDtoConverter());
-            CreateMap<SpellForSubclass, SpellForSubclassDto>();
-            CreateMap<SpellForSubclassDto, SpellForSubclass>();
         }
         public class UserDtoConverter : ITypeConverter<UserDto, User>
         {

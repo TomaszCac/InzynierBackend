@@ -28,7 +28,6 @@ namespace Projekt_inz_backend.Models
         public User? owner { get; set; }
         public string ownerName { get; set; }
         public int upvotes { get; set; }
-        public ICollection<SpellForClass> usesSpells { get; set; }
         public ICollection<DndSubclass> dndSubclasses { get; set; }
         public ICollection<CustomDndClassFeature> customFeatures { get; set; }
         public ICollection<Character> characters { get; set; }

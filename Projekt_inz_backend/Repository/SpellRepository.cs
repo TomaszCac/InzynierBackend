@@ -34,10 +34,6 @@ namespace Projekt_inz_backend.Repository
             return _context.Spells.Where(b => b.spellId == id).Select(b => b.owner).FirstOrDefault();
         }
 
-        public ICollection<DndClass> GetClassesUsing(int id)
-        {
-            return _context.spellsForClasses.Where(b => b.spellId == id).Select(b => b.usingClass).ToList();
-        }
 
         public bool CreateSpell(int ownerId, Spell spell)
         {
@@ -73,11 +69,6 @@ namespace Projekt_inz_backend.Repository
 
         public bool DeleteSpell(Spell spell)
         {
-            var spellused = _context.spellsForClasses.Where(b => b.spellId == spell.spellId).ToList();
-            foreach (var c in spellused)
-            {
-                _context.Remove(c);
-            }
             _context.Remove(spell);
             return Save();
         }

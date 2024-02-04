@@ -102,21 +102,6 @@ namespace Projekt_inz_backend.Tests.Controller
             result.Should().BeOfType(typeof(OkObjectResult));
         }
         [Fact]
-        public void SpellController_GetClasses_ReturnsOk()
-        {
-            //Arrange
-            int spellid = 1;
-            var classList = A.Fake<List<DndClassDto>>();
-            A.CallTo(() => _mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(spellid))).Returns(classList);
-            var controller = new SpellController(_spellrepos, _mapper, _userservice);
-            //Act
-            var result = controller.GetClasses(spellid);
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().NotBeOfType(typeof(NotFoundResult));
-            result.Should().BeOfType(typeof(OkObjectResult));
-        }
-        [Fact]
         public void SpellController_GetUserSpells_ReturnsOk()
         {
             //Arrange

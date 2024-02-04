@@ -16,7 +16,6 @@ namespace Projekt_inz_backend.Data
         public DbSet<DndClass> dndClasses { get; set; }
         public DbSet<CustomRaceFeature> customRaceFeatures { get; set; }
         public DbSet<CustomDndClassFeature> customDndClassFeatures { get; set; }
-        public DbSet<SpellForClass> spellsForClasses { get; set; }
         public DbSet<Spell> Spells { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Enemy> Enemies { get; set; }
@@ -24,23 +23,7 @@ namespace Projekt_inz_backend.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<DndSubclass> dndSubclasses { get; set; }
         public DbSet<CustomDndSubclassFeature> customDndSubclassFeatures { get; set; }
-        public DbSet<SpellForSubclass> spellsForSubclasses { get; set; }
         public DbSet<Upvote> upvotes { get; set; }
         public DbSet<Character> characters {  get; set; }
-
-
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<SpellForClass>(eb => { eb.HasKey(b => new { b.spellId, b.classId }); }
-            );
-            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.spellUsed).WithMany(b => b.usedByClass).HasForeignKey(b => b.spellId).OnDelete(DeleteBehavior.ClientSetNull));
-            modelBuilder.Entity<SpellForClass>(eb => eb.HasOne(b => b.usingClass).WithMany(b => b.usesSpells).HasForeignKey(b => b.classId).OnDelete(DeleteBehavior.ClientSetNull));
-            modelBuilder.Entity<SpellForSubclass>(eb => { eb.HasKey(b => new { b.spellId, b.subclassId }); }
-            );
-            modelBuilder.Entity<SpellForSubclass>(eb => eb.HasOne(b => b.spellUsed).WithMany(b => b.usedBySubclass).HasForeignKey(b => b.spellId).OnDelete(DeleteBehavior.ClientSetNull));
-            modelBuilder.Entity<SpellForSubclass>(eb => eb.HasOne(b => b.usingSubclass).WithMany(b => b.usesSpells).HasForeignKey(b => b.subclassId).OnDelete(DeleteBehavior.ClientSetNull));
-        }
     }
 }

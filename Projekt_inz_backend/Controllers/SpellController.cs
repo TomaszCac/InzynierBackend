@@ -83,18 +83,6 @@ namespace Projekt_inz_backend.Controllers
             }
             return Ok(user);
         }
-        [HttpGet("classes/{spellid}"), AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetClasses(int spellid)
-        {
-            var classes = _mapper.Map<List<DndClassDto>>(_spellrepos.GetClassesUsing(spellid));
-            if (classes == null)
-            {
-                return NotFound();
-            }
-            return Ok(classes);
-        }
         [HttpGet("owner/{ownerid}"), AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

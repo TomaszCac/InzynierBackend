@@ -9,7 +9,6 @@ namespace Projekt_inz_backend.Interfaces
         ICollection<Spell> GetSpellByName(string spellname);
         ICollection<Spell> GetSpellByLvl(int lvl);
         User GetOwner(int id);
-        ICollection<DndClass> GetClassesUsing(int id);
         bool CreateSpell(int ownerId, Spell spell);
         bool UpdateSpell(Spell spell);
         bool DeleteSpell(Spell spell);
