@@ -48,7 +48,7 @@ namespace Projekt_inz_backend.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetCharactersByOwner(int ownerId)
         {
-            var characters = _mapper.Map<List<DndClassDto>>(_characterrepos.GetCharactersByOwner(ownerId));
+            var characters = _mapper.Map<List<CharacterDto>>(_characterrepos.GetCharactersByOwner(ownerId));
             if (characters == null)
             {
                 return NotFound();

@@ -277,3 +277,6 @@ C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\obj\Debug\net6
 C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\obj\Debug\net6.0\Projekt_inz_backend.pdb
 C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\obj\Debug\net6.0\Projekt_inz_backend.genruntimeconfig.cache
 C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\obj\Debug\net6.0\ref\Projekt_inz_backend.dll
+C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\bin\Debug\net6.0\Scrutor.dll
+C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\Piotoms\source\repos\InzynierBackend\Projekt_inz_backend\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
