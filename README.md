@@ -1,4 +1,5 @@
 # InzynierBackend
+Ten projekt jest już przestarzały pod względem mojej estetyki Git (aby to sprawdzić polecam mój drugi projekt "TaskManagmentSystemApi"), jego głownym celem jest pokazanie moich możliwości w tworzeniu kodu.
 <br /><br /><br />
 <h2>Instrukcja:<h2><br />
 Aby włączyć backend najpierw należy uruchomić serwer SQL: https://www.microsoft.com/pl-pl/sql-server/sql-server-downloads (Najlepsza opcja to SQL EXPRESS) <br />
